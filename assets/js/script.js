@@ -37,7 +37,7 @@ const drinks = [];
 function searchDrink(drink, alc){
   
     //Search By INGREDIENT
-        const queryUrl = `http://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${drink}`;
+       const queryUrl = `http://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${drink}`;
 
     //Search by NAME
        // const queryUrl = `http://www.thecocktaildb.com/api/json/v1/1/search.php?i=${drink}`;
