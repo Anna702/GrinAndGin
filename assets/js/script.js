@@ -25,3 +25,98 @@
     // Update liked recipes array and save to local storage
     // Render updated liked recipes on the webpage
     // Code to handle disliking a recipe
+
+
+
+
+// Initial array of drinks
+const drinks = [];
+
+
+
+function searchDrink(drink, alc){
+  
+    //Search By INGREDIENT
+        const queryUrl = `http://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${drink}`;
+
+    //Search by NAME
+       // const queryUrl = `http://www.thecocktaildb.com/api/json/v1/1/search.php?i=${drink}`;
+
+    //Search cocktail by NAME: MARGARITA, MOJITO
+    //we get (name,icon,alcoholic/non alcoholic, instructions, glass type, ingredients, measures...)
+       // const queryUrl = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${drink}`;
+
+   
+       fetch(queryUrl)
+           .then(function(response){
+                return response.json();
+           }).then(function(data){
+                console.log(data);
+               
+               drinkCard(data, drink);
+         
+           })  
+        };
+// Function to display drinks on the page
+    function drinkCard(data, drink) {
+        
+
+       // Retrieving the URL for the image
+       const name = data.drinks[0].strDrink; 
+       
+            console.log(name);
+       const imgURL = data.drinks[0].strDrinkThumb;
+
+         // Creating an element to hold the image
+        const image = $("<img>").attr("src", imgURL);
+        
+        const card = `
+          <div class="card">
+            <div class="card-body">
+              <h2 class="card-title">${data.drinks[0].strDrink
+              }</h2>
+        
+              <img src=${data.drinks[0].strDrinkThumb} alt="Cocktail Icon">
+              <p class="card-text">How to make : ${data.drinks[0].strInstructions}</p>
+              <p class="card-text">Type: ${data.drinks[0].strAlcoholic
+              }</p>
+             
+            </div>
+          </div>
+        `;
+       
+        $('#container').html(card);
+
+     
+    }
+
+  
+
+ // Event handler for user clicking the search drink button
+$("#searchButton").on("click", function (event) {
+    // Preventing the button from trying to submit the form
+    event.preventDefault();
+    // Storing the drink name insert by the user
+    const inputDrink = $("#ingredients").val().trim();
+    //Storing if the user wants an alcoholic/non alcoholic options
+    const alcoholic =  $("#alcoholType").val().trim();
+    console.log(inputDrink);
+    console.log(alcoholic);
+
+    //user input cocktail name is empty nothing happend
+    if (inputDrink == "" ){
+        return;
+    }else {
+
+        // Adding drink from the textbox to our array of drinks search
+        drinks.push(inputDrink);
+        console.log(drinks);
+    // Calling renderDrinks which handles the processing of our drinks array
+        // 
+        
+    // Running the searchDrink function(passing in the drink as an argument)
+        // searchDrink(inputDrink);
+        searchDrink(inputDrink, alcoholic);
+    
+  }
+});
