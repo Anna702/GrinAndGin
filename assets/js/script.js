@@ -38,6 +38,10 @@ function searchDrink(drink, alc) {
   //Search by NAME
   // const queryUrl = `http://www.thecocktaildb.com/api/json/v1/1/search.php?i=${drink}`;
 
+function searchDrink(drink, alc){
+  
+    //Search By INGREDIENT
+       const queryUrl = `http://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${drink}`;
   //Search cocktail by NAME: MARGARITA, MOJITO
   //we get (name,icon,alcoholic/non alcoholic, instructions, glass type, ingredients, measures...)
   // const queryUrl = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${drink}`;
