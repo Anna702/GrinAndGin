@@ -21,10 +21,12 @@
 // Render updated search history on the webpage
 
 // Event listener for like/dislike buttons
+
 // Code to handle liked recipes
 // Update liked recipes array and save to local storage
 // Render updated liked recipes on the webpage
 // Code to handle disliking a recipe
+
 
 // Initial array of drinks
 const drinks = [];
@@ -81,10 +83,12 @@ function drinkCard(data, coctailRecipe) {
               <p class="card-text">How to make : ${coctailRecipe}</p>
               <p class="card-text">Type: ${data.drinks[0].strAlcoholic}</p>
            
+
              
             </div>
           </div>
         `;
+
 
   $("#container").html(card);
 }
