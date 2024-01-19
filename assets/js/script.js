@@ -123,3 +123,4 @@ $("#searchButton").on("click", function (event) {
     searchDrink(inputDrink, alcoholic);
   }
 });
+}
