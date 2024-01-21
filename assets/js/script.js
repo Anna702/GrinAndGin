@@ -35,7 +35,7 @@ function searchDrink(drink, alc) {
   //Search By INGREDIENT
   let queryUrl;
 
-  //check the alco-user-input
+  //check the alco/non-user-input
   if (alc === "alcoholic") {
     // Search By INGREDIENT for alcoholic drinks
     queryUrl = `http://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${drink}&a=Alcoholic`;
@@ -61,39 +61,6 @@ function searchDrink(drink, alc) {
         .then(function (data) {
           console.log(data.drinks[0].strInstructions); //it is an instruction
           cocktailRecipe = data.drinks[0].strInstructions;
-          // drinkCard(data, cocktailRecipe);
-
-          // Fetch data from Spoonacular API based on the search ingredient
-          // let spoonacularAPIKey = "c95b683195bc4fc3b9ab307e16a80699";
-          // const spoonacularQueryUrl = `https://api.spoonacular.com/recipes/findByIngredients?ingredients=${inputDrink}&apiKey=${spoonacularAPIKey}`;
-          // console.log(inputDrink);
-          // fetch(spoonacularQueryUrl)
-          //   .then(function (response) {
-          //     return response.json();
-          //   })
-
-          //   .then(function (foodData) {
-          //     console.log(foodData);
-
-          //     // Check if there is data and if the first result has the expected properties
-          //     if (
-          //       foodData.length > 0 &&
-          //       foodData[0].title &&
-          //       foodData[0].image
-          //     ) {
-          //       //creating a new URL for the second API call - with coctail name
-          //       queryUrl = `https://api.spoonacular.com/recipes/findByIngredients?ingredients=${foodData[0].title}&apiKey=${spoonacularAPIKey}`;
-          //       console.log(foodData[0].title);
-          //       fetch(queryUrl)
-          //         .then(function (response) {
-          //           return response.json();
-          //         })
-          //         .then(function (foodData) {
-          //           console.log("Spoonacular API Response:", foodData[0].image);
-          //           foodImage = foodData[0].image;
-
-          //           Display both cocktail and food data
-
           drinkCard(data, cocktailRecipe);
         });
     });
@@ -106,22 +73,14 @@ function drinkCard(data, cocktailRecipe) {
   console.log(name);
   const imgURL = data.drinks[0].strDrinkThumb;
 
-  // Creating an element to hold the image
-  const image = $("<img>").attr("src", imgURL);
-  // Creating an element to hold the recipe
-  const recipeEl = $("<div>").text(`How to make it: ${cocktailRecipe}`);
-
   const card = `
           <div class="card">
             <div class="card-body">
               <h2 class="card-title">${data.drinks[0].strDrink}</h2>
         
-              <img src=${data.drinks[0].strDrinkThumb} alt="Cocktail Icon">
+              <img src=${imgURL} alt="Cocktail Icon">
               <p class="card-text">How to make : ${cocktailRecipe}</p>
               <p class="card-text">Type: ${data.drinks[0].strAlcoholic}</p>
-           
-
-             
             </div>
           </div>
         `;
@@ -149,11 +108,6 @@ $("#searchButton").on("click", function (event) {
     // Adding drink from the textbox to our array of drinks search
     drinks.push(inputDrink);
     console.log(drinks);
-    // Calling renderDrinks which handles the processing of our drinks array
-    //
-
-    // Running the searchDrink function(passing in the drink as an argument)
-    // searchDrink(inputDrink);
     searchDrink(inputDrink, selectedType);
   }
 });
