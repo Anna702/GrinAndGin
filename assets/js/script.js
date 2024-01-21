@@ -133,15 +133,17 @@ function drinkCard(data, cocktailRecipe) {
 $("#searchButton").on("click", function (event) {
   // Preventing the button from trying to submit the form
   event.preventDefault();
+
   // Storing the drink name insert by the user
   const inputDrink = $("#ingredients").val().trim();
-  //Storing if the user wants an alcoholic/non alcoholic options
-  const alcoholic = $("#alcoholType").val().trim();
-  console.log(inputDrink);
-  console.log(alcoholic);
 
-  //user input cocktail name is empty nothing happend
-  if (inputDrink == "") {
+  // Get the selected alco value from the dropdown menu
+  const selectedType = $("#alcoholType").val().trim();
+  console.log(selectedType);
+
+  //throw an error if user input cocktail name is empty
+  if (!inputDrink) {
+    console.error("Please enter any ingredient.");
     return;
   } else {
     // Adding drink from the textbox to our array of drinks search
@@ -152,6 +154,6 @@ $("#searchButton").on("click", function (event) {
 
     // Running the searchDrink function(passing in the drink as an argument)
     // searchDrink(inputDrink);
-    searchDrink(inputDrink, alcoholic);
+    searchDrink(inputDrink, selectedType);
   }
 });
