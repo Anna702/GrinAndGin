@@ -27,23 +27,51 @@
 // Render updated liked recipes on the webpage
 // Code to handle disliking a recipe
 
-// Initial array of drinks
-var drinks = [];
+//Function to get random elements from drinks array (that we got from API call)
+function getRandomElements(array, count) {
+  const arrayLength = array.length;
+  let randomIndices = [];
 
-// Function to search for a drink by ingredient
-function searchDrink(drink, alc) {
-  //Search By INGREDIENT
-  let queryUrl;
-
-  //check the alco/non-user-input
-  if (alc === "alcoholic") {
-    // Search By INGREDIENT for alcoholic drinks
-    queryUrl = `http://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${drink}&a=Alcoholic`;
-  } else if (alc === "non-alcoholic") {
-    // Search By INGREDIENT for non-alcoholic drinks
-    queryUrl = `http://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${drink}&a=Non_Alcoholic`;
+  if (count > arrayLength) {
+    // If the requested count is more than the array length, return the entire array
+    return array;
   }
 
+  while (randomIndices.length < count) {
+    const randomIndex = Math.floor(Math.random() * arrayLength);
+
+    // Check if the index is not already selected
+    if (randomIndices.indexOf(randomIndex) === -1) {
+      randomIndices.push(randomIndex);
+    }
+  }
+
+  // Map the random indices to corresponding array elements
+  const randomElements = randomIndices.map(function (index) {
+    return array[index];
+  });
+
+  return randomElements;
+}
+
+
+// Function to search for a drink by ingredient
+function searchDrink(drink) {
+  //Search By INGREDIENT
+  let queryUrl = `http://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${drink}`;
+
+  $.getJSON(queryUrl)
+    .done(function (data) {
+      console.log(data.drinks);
+      let listOfDrinks = getRandomElements(data.drinks, 9);
+      console.log(listOfDrinks);
+    })
+    .fail(function (data) {
+      console.log(data);
+      alert("Could not find any drink with this ingredient");
+    });
+
+  return;
   fetch(queryUrl)
     .then(function (response) {
       return response.json();
@@ -59,8 +87,7 @@ function searchDrink(drink, alc) {
           return response.json();
         })
         .then(function (data) {
-          console.log(data.drinks[0].strInstructions); //it is an instruction
-          cocktailRecipe = data.drinks[0].strInstructions;
+          cocktailRecipe = data.drinks[0].strInstructions; //it is an instruction
           drinkCard(data, cocktailRecipe);
         });
     });
@@ -69,18 +96,18 @@ function searchDrink(drink, alc) {
 // Function to display drinks on the page
 function drinkCard(data, cocktailRecipe) {
   // Retrieving the URL for the image
+  console.log(data);
   const name = data.drinks[0].strDrink;
-  console.log(name);
   const imgURL = data.drinks[0].strDrinkThumb;
+  const alcoOrNot = data.drinks[0].strAlcoholic;
 
   const card = `
           <div class="card">
             <div class="card-body">
-              <h2 class="card-title">${data.drinks[0].strDrink}</h2>
-        
+              <h2 class="card-title">${name}</h2>
               <img src=${imgURL} alt="Cocktail Icon">
               <p class="card-text">How to make : ${cocktailRecipe}</p>
-              <p class="card-text">Type: ${data.drinks[0].strAlcoholic}</p>
+              <p class="card-text">Type: ${alcoOrNot}</p>
             </div>
           </div>
         `;
@@ -88,26 +115,23 @@ function drinkCard(data, cocktailRecipe) {
   $("#container").html(card);
 }
 
-// Event handler for user clicking the search drink button
+// Event handler for MixIt button
 $("#searchButton").on("click", function (event) {
-  // Preventing the button from trying to submit the form
-  event.preventDefault();
+  // Preventing propagation of the event
+  event.stopImmediatePropagation();
 
   // Storing the drink name insert by the user
   const inputDrink = $("#ingredients").val().trim();
 
   // Get the selected alco value from the dropdown menu
-  const selectedType = $("#alcoholType").val().trim();
-  console.log(selectedType);
+  // const selectedType = $("#alcoholType").val().trim();
+  // console.log(selectedType);
 
   //throw an error if user input cocktail name is empty
   if (!inputDrink) {
     console.error("Please enter any ingredient.");
     return;
-  } else {
-    // Adding drink from the textbox to our array of drinks search
-    drinks.push(inputDrink);
-    console.log(drinks);
-    searchDrink(inputDrink, selectedType);
   }
+  // Adding drink from the textbox to our array of drinks search
+  searchDrink(inputDrink);
 });
