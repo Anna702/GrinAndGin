@@ -112,14 +112,16 @@ function drinkCard(data, howToMake, alcoOrNot) {
   console.log(data);
 
   const card = `
+  <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
           <div class="card">
             <div class="card-body">
               <h2 class="card-title">${name}</h2>
-              <img src=${imgURL} alt="Cocktail Icon">
+              <img src=${imgURL} alt="Cocktail Icon" class="img-fluid">
               <p class="card-text">How to make : ${howToMake}</p>
               <p class="card-text">Type: ${alcoOrNot}</p>
             </div>
           </div>
+  </div>
         `;
   return card;
 }
