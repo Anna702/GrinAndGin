@@ -71,7 +71,7 @@ function searchDrink(drink) {
 
       for (let i = 0; i < listOfDrinks.length; i++) {
         const secondQueryUrl = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${listOfDrinks[i].strDrink}`;
-        //getJSON is always async, thay is why here we use ajax - to wait for an nanswer from API before going further
+        //getJSON is always async, thay is why here we use ajax - to wait for an answer from API before going further
         $.ajax({
           type: "GET",
           async: false,
@@ -83,6 +83,22 @@ function searchDrink(drink) {
             console.log(howToMake);
             const alcoOrNot = dataInstructions.drinks[0].strAlcoholic; //it is a drink type
             console.log(alcoOrNot);
+
+            // HAVE DATA BUT CAN NOT DISPLAY IT
+            //add 3rd queryURL
+            // Spoonacular API based on the search ingredient
+            const spoonacularQueryUrl = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${drink}`;
+            console.log(spoonacularQueryUrl);
+
+            $.getJSON(spoonacularQueryUrl).done(function (foodData) {
+              console.log(foodData);
+              const mealName = foodData.meals[0].strMeal;
+              const mealImage = foodData.meals[0].strMealThumb;
+              console.log(mealName, mealImage);
+            });
+
+            // END -----HAVE DATA BUT CAN NOT DISPLAY IT
+
             // Add cocktail name and recipe to cardsHtml
             cardsHtml += drinkCard(listOfDrinks[i], howToMake, alcoOrNot);
           },
@@ -104,12 +120,11 @@ function searchDrink(drink) {
 }
 
 // Function to display drinks on the page
-function drinkCard(data, howToMake, alcoOrNot) {
-  console.log(data);
+function drinkCard(data, howToMake, alcoOrNot, foodName) {
+  console.log(foodName);
   // Retrieving the URL for the image
   const name = data.strDrink;
   const imgURL = data.strDrinkThumb;
-  console.log(data);
 
   const card = `
   <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
@@ -119,6 +134,7 @@ function drinkCard(data, howToMake, alcoOrNot) {
               <img src=${imgURL} alt="Cocktail Icon" class="img-fluid">
               <p class="card-text">How to make : ${howToMake}</p>
               <p class="card-text">Type: ${alcoOrNot}</p>
+              <p class="card-text">Food: ${foodName}</p>
             </div>
           </div>
   </div>
@@ -141,4 +157,22 @@ $("#searchButton").on("click", function (event) {
   }
   // Adding drink from the textbox to our array of drinks search
   searchDrink(inputDrink);
+  spoonAPI(inputDrink);
 });
+
+// .fail(function (data) {
+//   console.log(data);
+//   alert("Could not find any meal with this ingredient");
+// });
+
+// $.ajax({
+//   type: "GET",
+//   async: false,
+//   url: spoonacularQueryUrl,
+//   dataType: "json",
+//   success: function (foodData) {
+//     console.log(foodData[0]);
+//     const foodName = foodData[0].title;
+//     return foodName;
+//   },
+// });
