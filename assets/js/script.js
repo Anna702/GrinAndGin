@@ -84,29 +84,32 @@ function searchDrink(drink) {
             const alcoOrNot = dataInstructions.drinks[0].strAlcoholic; //it is a drink type
             console.log(alcoOrNot);
 
-            // HAVE DATA BUT CAN NOT DISPLAY IT
             //add 3rd queryURL
             // Spoonacular API based on the search ingredient
             const spoonacularQueryUrl = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${drink}`;
             console.log(spoonacularQueryUrl);
 
-            $.getJSON(spoonacularQueryUrl).done(function (foodData) {
-              console.log(foodData);
-              const mealName = foodData.meals[0].strMeal;
-              const mealImage = foodData.meals[0].strMealThumb;
-              console.log(mealName, mealImage);
+            $.ajax({
+              type: "GET",
+              async: false,
+              url: spoonacularQueryUrl,
+              dataType: "json",
+              success: function (foodData) {
+                console.log(foodData);
+                const mealName = foodData.meals[0].strMeal;
+                const mealImage = foodData.meals[0].strMealThumb;
+                console.log(mealName, mealImage);
+
+                // Add cocktail name and recipe to cardsHtml
+                cardsHtml += drinkCard(
+                  listOfDrinks[i],
+                  howToMake,
+                  alcoOrNot,
+                  mealName,
+                  mealImage
+                );
+              },
             });
-
-            // END -----HAVE DATA BUT CAN NOT DISPLAY IT
-
-            // Add cocktail name and recipe to cardsHtml
-            cardsHtml += drinkCard(listOfDrinks[i], howToMake, alcoOrNot);
-          },
-          error: function (msg) {
-            console.log(msg);
-            alert(
-              `Could not find any recipe for the drink ${listOfDrinks[i].strDrink}`
-            );
           },
         });
       }
@@ -120,8 +123,8 @@ function searchDrink(drink) {
 }
 
 // Function to display drinks on the page
-function drinkCard(data, howToMake, alcoOrNot, foodName) {
-  console.log(foodName);
+function drinkCard(data, howToMake, alcoOrNot, mealName, mealImage) {
+  console.log(mealName);
   // Retrieving the URL for the image
   const name = data.strDrink;
   const imgURL = data.strDrinkThumb;
@@ -134,7 +137,8 @@ function drinkCard(data, howToMake, alcoOrNot, foodName) {
               <img src=${imgURL} alt="Cocktail Icon" class="img-fluid">
               <p class="card-text">How to make : ${howToMake}</p>
               <p class="card-text">Type: ${alcoOrNot}</p>
-              <p class="card-text">Food: ${foodName}</p>
+              <p class="card-text">Food: ${mealName}</p>
+              <img src=${mealImage} alt="Meal Icon" class="img-fluid">
             </div>
           </div>
   </div>
@@ -157,7 +161,6 @@ $("#searchButton").on("click", function (event) {
   }
   // Adding drink from the textbox to our array of drinks search
   searchDrink(inputDrink);
-  spoonAPI(inputDrink);
 });
 
 // .fail(function (data) {
