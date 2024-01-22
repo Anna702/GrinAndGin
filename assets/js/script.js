@@ -86,28 +86,51 @@ function searchDrink(drink) {
 
             //add 3rd queryURL
             // Spoonacular API based on the search ingredient
-            const spoonacularQueryUrl = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${drink}`;
-            console.log(spoonacularQueryUrl);
+            let foodQueryUrl = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${drink}`;
 
             $.ajax({
               type: "GET",
               async: false,
-              url: spoonacularQueryUrl,
+              url: foodQueryUrl,
               dataType: "json",
               success: function (foodData) {
-                console.log(foodData);
-                const mealName = foodData.meals[0].strMeal;
-                const mealImage = foodData.meals[0].strMealThumb;
-                console.log(mealName, mealImage);
+                //if there is no meals with ingredient - use API for a random meal
+                if (foodData.meals === null) {
+                  let foodQueryUrl = `https://www.themealdb.com/api/json/v1/1/random.php`;
 
-                // Add cocktail name and recipe to cardsHtml
-                cardsHtml += drinkCard(
-                  listOfDrinks[i],
-                  howToMake,
-                  alcoOrNot,
-                  mealName,
-                  mealImage
-                );
+                  $.ajax({
+                    type: "GET",
+                    async: false,
+                    url: foodQueryUrl,
+                    dataType: "json",
+                    success: function (foodData) {
+                      const mealName = foodData.meals[0].strMeal;
+                      const mealImage = foodData.meals[0].strMealThumb;
+
+                      cardsHtml += drinkCard(
+                        listOfDrinks[i],
+                        howToMake,
+                        alcoOrNot,
+                        mealName,
+                        mealImage
+                      );
+                    },
+                  });
+                } else {
+                  console.log(foodData);
+                  const mealName = foodData.meals[0].strMeal;
+                  const mealImage = foodData.meals[0].strMealThumb;
+                  console.log(mealName, mealImage);
+
+                  // Add cocktail name and recipe to cardsHtml
+                  cardsHtml += drinkCard(
+                    listOfDrinks[i],
+                    howToMake,
+                    alcoOrNot,
+                    mealName,
+                    mealImage
+                  );
+                }
               },
             });
           },
@@ -162,20 +185,3 @@ $("#searchButton").on("click", function (event) {
   // Adding drink from the textbox to our array of drinks search
   searchDrink(inputDrink);
 });
-
-// .fail(function (data) {
-//   console.log(data);
-//   alert("Could not find any meal with this ingredient");
-// });
-
-// $.ajax({
-//   type: "GET",
-//   async: false,
-//   url: spoonacularQueryUrl,
-//   dataType: "json",
-//   success: function (foodData) {
-//     console.log(foodData[0]);
-//     const foodName = foodData[0].title;
-//     return foodName;
-//   },
-// });
