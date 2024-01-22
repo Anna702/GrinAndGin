@@ -33,7 +33,7 @@ function getRandomElements(array, count) {
   let randomIndices = [];
 
   if (count > arrayLength) {
-    // If the requested count is more than the array length, return the entire array
+    // If the requested number of drinks is more than the array length, return the entire array
     return array;
   }
 
@@ -54,65 +54,74 @@ function getRandomElements(array, count) {
   return randomElements;
 }
 
-
 // Function to search for a drink by ingredient
 function searchDrink(drink) {
   //Search By INGREDIENT
   let queryUrl = `http://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${drink}`;
 
   $.getJSON(queryUrl)
+    //getJSON is always async,
     .done(function (data) {
       console.log(data.drinks);
-      let listOfDrinks = getRandomElements(data.drinks, 9);
+      let listOfDrinks = getRandomElements(data.drinks, 9); //this is our array of displayed drinks (if we need more/less to display - just change a number)
       console.log(listOfDrinks);
+
+      //creating a new query URL for the second API call - with coctail names
+      let cardsHtml = ""; // Accumulate HTML content for each cocktail card
+
+      for (let i = 0; i < listOfDrinks.length; i++) {
+        const secondQueryUrl = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${listOfDrinks[i].strDrink}`;
+        //getJSON is always async, thay is why here we use ajax - to wait for an nanswer from API before going further
+        $.ajax({
+          type: "GET",
+          async: false,
+          url: secondQueryUrl,
+          // contentType: "application/json",
+          dataType: "json",
+          success: function (dataInstructions) {
+            const howToMake = dataInstructions.drinks[0].strInstructions; //it is an instruction how to make a cocktail
+            console.log(howToMake);
+            const alcoOrNot = dataInstructions.drinks[0].strAlcoholic; //it is a drink type
+            console.log(alcoOrNot);
+            // Add cocktail name and recipe to cardsHtml
+            cardsHtml += drinkCard(listOfDrinks[i], howToMake, alcoOrNot);
+          },
+          error: function (msg) {
+            console.log(msg);
+            alert(
+              `Could not find any recipe for the drink ${listOfDrinks[i].strDrink}`
+            );
+          },
+        });
+      }
+      // Set the accumulated HTML content to #container
+      $("#container").html(cardsHtml);
     })
     .fail(function (data) {
       console.log(data);
       alert("Could not find any drink with this ingredient");
     });
-
-  return;
-  fetch(queryUrl)
-    .then(function (response) {
-      return response.json();
-    })
-    .then(function (data) {
-      console.log(data);
-
-      //creating a new URL for the second API call - with coctail name
-      queryUrl = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${data.drinks[0].strDrink}`;
-      console.log(data.drinks[0].strDrink);
-      fetch(queryUrl)
-        .then(function (response) {
-          return response.json();
-        })
-        .then(function (data) {
-          cocktailRecipe = data.drinks[0].strInstructions; //it is an instruction
-          drinkCard(data, cocktailRecipe);
-        });
-    });
 }
 
 // Function to display drinks on the page
-function drinkCard(data, cocktailRecipe) {
-  // Retrieving the URL for the image
+function drinkCard(data, howToMake, alcoOrNot) {
   console.log(data);
-  const name = data.drinks[0].strDrink;
-  const imgURL = data.drinks[0].strDrinkThumb;
-  const alcoOrNot = data.drinks[0].strAlcoholic;
+  // Retrieving the URL for the image
+  const name = data.strDrink;
+  const imgURL = data.strDrinkThumb;
+  console.log(data);
 
   const card = `
           <div class="card">
             <div class="card-body">
               <h2 class="card-title">${name}</h2>
               <img src=${imgURL} alt="Cocktail Icon">
-              <p class="card-text">How to make : ${cocktailRecipe}</p>
+              <p class="card-text">How to make : ${howToMake}</p>
               <p class="card-text">Type: ${alcoOrNot}</p>
             </div>
           </div>
         `;
-
-  $("#container").html(card);
+  return card;
 }
 
 // Event handler for MixIt button
@@ -123,13 +132,9 @@ $("#searchButton").on("click", function (event) {
   // Storing the drink name insert by the user
   const inputDrink = $("#ingredients").val().trim();
 
-  // Get the selected alco value from the dropdown menu
-  // const selectedType = $("#alcoholType").val().trim();
-  // console.log(selectedType);
-
   //throw an error if user input cocktail name is empty
   if (!inputDrink) {
-    console.error("Please enter any ingredient.");
+    console.error("Please enter any ingredient!");
     return;
   }
   // Adding drink from the textbox to our array of drinks search
