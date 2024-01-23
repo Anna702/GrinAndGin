@@ -1,5 +1,5 @@
 .pageWrapper {
-  padding: 50px;
+  padding: 20px;
 }
 
 #logo img {
@@ -30,4 +30,32 @@ header {
   margin: 5px;
   background-color: #fbf2b3;
   border-radius: 5px;
+}
+
+.li-creators {
+  color: black;
+}
+
+.contacts-text {
+  color: black;
+  transition: color 0.3s ease;
+}
+
+.li-creators:hover {
+  color: #f85b52;
+}
+
+.mix-it-btn {
+  color: black;
+  background-color: #f85b52;
+  border: black solid 3px;
+}
+
+.contacts-section {
+  background-color: #BFDBA0;
+}
+
+footer-p-1,
+footer-p-2 {
+  font-size: smaller;
 }
