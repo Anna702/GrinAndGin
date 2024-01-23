@@ -94,3 +94,42 @@ header {
 .api-icons {
   text-decoration: none;
 }
+
+.nav-item {
+  margin: 7px;
+}
+
+.nav-pills {
+  text-align: center;
+  margin-right: 15px;
+  margin-left: 15px;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: #2a4703;
+  font-weight: bold;
+}
+
+.nav-link:hover {
+  color: #f85b52;
+}
+
+.navbar-logo img {
+  margin: 10px;
+}
+
+#project-section {
+  background-image: url("../Images/cocktails_background.png");
+}
+
+.dropdown-toggleCustom:hover {
+  background-color: #fbf2b3;
+}
+
+.top-btn {
+  margin: 15px;
+}
