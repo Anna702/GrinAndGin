@@ -72,3 +72,15 @@ footer-p-2 {
   font-size: larger;
   font-weight: bold;
 }
+
+.ul-about-us {
+  list-style-type: disc;
+}
+
+.ul-about-us li {
+  margin-bottom: 10px;
+}
+
+.api-icons {
+  text-decoration: none;
+}
