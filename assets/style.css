@@ -47,15 +47,28 @@ header {
 
 .mix-it-btn {
   color: black;
-  background-color: #f85b52;
-  border: black solid 3px;
+  background-color: #f2a19d;
+  border: black solid 2.5px;
 }
 
 .contacts-section {
-  background-color: #BFDBA0;
+  background-color: #bfdba0;
 }
 
 footer-p-1,
 footer-p-2 {
   font-size: smaller;
+}
+
+.ingredients-input-section {
+  margin: 20px;
+}
+
+.jumbo-text {
+  margin: 10px;
+}
+
+.input-label-text {
+  font-size: larger;
+  font-weight: bold;
 }
