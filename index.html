@@ -102,39 +102,51 @@
 
 
           <div class="container text-center">
+            <!-- INGREDIENTS label -->
             <div class="row g-3 align-items-center">
-              <!-- INGREDIENTS input -->
-              <div class="col-sm-12 col-md-6 mx-auto ingredients-input-section">
-                <label for="ingredients" class="input-label-text form-label">What do you have for today?</label>
-                <div class="input-group">
-                  <input
-                    type="text"
-                    id="ingredients"
-                    class="form-control"
-                    name="ingredients"
-                    placeholder="E.g., Gin, Lime, Mint"
-                  />
-                        
-                  <!-- ALCO OR NON-ALCO - dropdown menu -->
-<label for="alcoholType">Choose drink type:</label>
-<select id="alcoholType" name="alcoholType">
-  <option value="Alcoholic">Alcoholic</option>
-  <option value="Non alcoholic">Non Alcoholic</option>
-</select>
-                  
-                  <button
-                    class="btn btn-danger mix-it-btn"
-                    type="submit"
-                    id="searchButton"
-                  >
-                    Mix it!
-                  </button>
-                  
+                <div class="col-sm-12">
+                    <label for="ingredients" class="input-label-text form-label">What do you have for today?</label>
                 </div>
-              </div>
-             
             </div>
-          </div>
+        
+            <!-- INGREDIENTS input -->
+            <div class="row g-3 align-items-center input-dropdown">
+                <div class="col-sm-12 col-md-6 mx-auto ingredients-input-section">
+                    <input
+                        type="text"
+                        id="ingredients"
+                        class="form-control"
+                        name="ingredients"
+                        placeholder="E.g., Gin, Lime, Mint"
+                    />
+                </div>
+            </div>
+        
+            <!-- ALCO OR NON-ALCO - dropdown menu -->
+            <div class="row g-3 align-items-center input-dropdown choose-drink-type">
+                <div class="col-sm-12 col-md-6 mx-auto">
+                    <label class="label-choose" for="alcoholType">Choose drink type:</label>
+                    <select id="alcoholType" name="alcoholType" class="form-select">
+                        <option value="Alcoholic">Alcoholic</option>
+                        <option value="Non alcoholic">Non Alcoholic</option>
+                    </select>
+                </div>
+            </div>
+        
+            <!-- Mix it! button -->
+            <div class="row g-3 align-items-center">
+                <div class="col-sm-12 text-center mix-it-div">
+                    <button
+                        class="btn btn-danger mix-it-btn"
+                        type="submit"
+                        id="searchButton"
+                    >
+                        Mix it!
+                    </button>
+                </div>
+            </div>
+        </div>
+        
 
         <!-- Code for card placeholders -->
 

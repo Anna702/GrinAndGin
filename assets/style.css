@@ -51,8 +51,16 @@ header {
   border: black solid 2.5px;
 }
 
+.input-dropdown {
+  margin-bottom: 15px;
+}
+
 .contacts-section {
   background-color: #bfdba0;
+}
+
+.label-choose {
+  margin-bottom: 10px;
 }
 
 footer-p-1,
