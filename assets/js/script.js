@@ -85,7 +85,7 @@ function searchDrink(drink) {
             console.log(alcoOrNot);
 
             //add 3rd queryURL
-            // Spoonacular API based on the search ingredient
+            //The meal DB API - search based on the user input ingredient
             let foodQueryUrl = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${drink}`;
 
             $.ajax({
@@ -116,20 +116,27 @@ function searchDrink(drink) {
                       );
                     },
                   });
-                } else {
-                  console.log(foodData);
-                  const mealName = foodData.meals[0].strMeal;
-                  const mealImage = foodData.meals[0].strMealThumb;
-                  console.log(mealName, mealImage);
-
-                  // Add cocktail name and recipe to cardsHtml
-                  cardsHtml += drinkCard(
-                    listOfDrinks[i],
-                    howToMake,
-                    alcoOrNot,
-                    mealName,
-                    mealImage
+                }
+                //else - get a random recipe with an input ingredient in it and attach it to the card
+                else {
+                  const differentMatchingMeals = getRandomElements(
+                    foodData.meals,
+                    1
                   );
+                  // Loop through each meal in differentMatchingMeals
+                  for (let j = 0; j < differentMatchingMeals.length; j++) {
+                    const mealName = differentMatchingMeals[j].strMeal;
+                    const mealImage = differentMatchingMeals[j].strMealThumb;
+
+                    // Add cocktail name and recipe to cardsHtml
+                    cardsHtml += drinkCard(
+                      listOfDrinks[i],
+                      howToMake,
+                      alcoOrNot,
+                      mealName,
+                      mealImage
+                    );
+                  }
                 }
               },
             });
