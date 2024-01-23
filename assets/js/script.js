@@ -116,8 +116,9 @@ function searchDrink(drink) {
                       );
                     },
                   });
-                  //else - get a random recipe with an input ingredient in it and attach it to the card
-                } else {
+                }
+                //else - get a random recipe with an input ingredient in it and attach it to the card
+                else {
                   const differentMatchingMeals = getRandomElements(
                     foodData.meals,
                     1
