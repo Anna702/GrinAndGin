@@ -100,6 +100,7 @@
           </div>
           <!-- END JUMBATRON -->
 
+
           <div class="container text-center">
             <div class="row g-3 align-items-center">
               <!-- INGREDIENTS input -->
@@ -113,6 +114,14 @@
                     name="ingredients"
                     placeholder="E.g., Gin, Lime, Mint"
                   />
+                        
+                  <!-- ALCO OR NON-ALCO - dropdown menu -->
+<label for="alcoholType">Choose drink type:</label>
+<select id="alcoholType" name="alcoholType">
+  <option value="Alcoholic">Alcoholic</option>
+  <option value="Non alcoholic">Non Alcoholic</option>
+</select>
+                  
                   <button
                     class="btn btn-danger mix-it-btn"
                     type="submit"
@@ -120,14 +129,10 @@
                   >
                     Mix it!
                   </button>
+                  
                 </div>
               </div>
-              <!-- ALCO OR NON-ALCO - dropdown menu
-              <label for="alcoholType">Choose drink type:</label>
-              <select id="alcoholType" name="alcoholType">
-                <option value="alcoholic">Alcoholic</option>
-                <option value="non-alcoholic">Non-Alcoholic</option>
-              </select> -->
+             
             </div>
           </div>
 

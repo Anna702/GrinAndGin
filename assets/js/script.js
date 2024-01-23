@@ -27,6 +27,11 @@
 // Render updated liked recipes on the webpage
 // Code to handle disliking a recipe
 
+
+
+
+// Initial array of drinks
+var drinks = [];
 //Function to get random elements from drinks array (that we got from API call)
 function getRandomElements(array, count) {
   const arrayLength = array.length;
@@ -55,9 +60,14 @@ function getRandomElements(array, count) {
 }
 
 // Function to search for a drink by ingredient
-function searchDrink(drink) {
+function searchDrink(drink,alcoholic) {
   //Search By INGREDIENT
-  let queryUrl = `http://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${drink}`;
+ // let queryUrl = `http://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${drink}`;
+
+
+   //Search cocktail by NAME: MARGARITA, MOJITO
+      //we get (name,icon,alcoholic/non alcoholic, instructions, glass type, ingredients, measures...)
+      var queryUrl = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${drink}`;
 
   $.getJSON(queryUrl)
     //getJSON is always async,
@@ -72,6 +82,9 @@ function searchDrink(drink) {
       for (let i = 0; i < listOfDrinks.length; i++) {
         const secondQueryUrl = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${listOfDrinks[i].strDrink}`;
         //getJSON is always async, thay is why here we use ajax - to wait for an answer from API before going further
+
+      
+
         $.ajax({
           type: "GET",
           async: false,
@@ -83,6 +96,11 @@ function searchDrink(drink) {
             console.log(howToMake);
             const alcoOrNot = dataInstructions.drinks[0].strAlcoholic; //it is a drink type
             console.log(alcoOrNot);
+
+      
+            //filter by alcoholic/non alcoholic options given by user input
+            if (dataInstructions.drinks[0].strAlcoholic === alcoholic){
+
 
             //add 3rd queryURL
             //The meal DB API - search based on the user input ingredient
@@ -106,6 +124,8 @@ function searchDrink(drink) {
                     success: function (foodData) {
                       const mealName = foodData.meals[0].strMeal;
                       const mealImage = foodData.meals[0].strMealThumb;
+
+                      console.log("list of drinks: "+listOfDrinks[i])
 
                       cardsHtml += drinkCard(
                         listOfDrinks[i],
@@ -140,6 +160,7 @@ function searchDrink(drink) {
                 }
               },
             });
+          }//if
           },
         });
       }
@@ -159,16 +180,48 @@ function drinkCard(data, howToMake, alcoOrNot, mealName, mealImage) {
   const name = data.strDrink;
   const imgURL = data.strDrinkThumb;
 
-  //Added a line at the end for the like button in the html js script
+
+  if (data.strIngredient1!== null) {
+    var ing1= `${data.strIngredient1} `+ " - "+`${data.strMeasure1} `;
+   }
+   else{
+    ing1= " ";
+     }
+    if (data.strIngredient2!== null) {
+        var ing2= `${data.strIngredient2} `+ " - "+`${data.strMeasure2} `;
+       }
+     else{
+        ing2= " ";
+     }
+     if (data.strIngredient3!== null) {
+       var ing3= `${data.strIngredient3} `+ " - "+`${data.strMeasure3} `;
+       }
+       else{
+        ing3= " ";
+         }
+    if (data.strIngredient4!== null) {
+    ing4= `${data.strIngredient4} `+ " - "+`${data.strMeasure4} `;
+        
+    }else{
+       var ing4= " ";
+    }
+
   const card = `
   <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
           <div class="card">
             <div class="card-body">
               <h2 class="card-title">${name}</h2>
+              <p class="card-text">Type: ${alcoOrNot}</p>
               <img src=${imgURL} alt="Cocktail Icon" class="img-fluid">
               <p class="card-text">How to make : ${howToMake}</p>
-              <p class="card-text">Type: ${alcoOrNot}</p>
-              <p class="card-text">Food: ${mealName}</p>
+        
+              <h5 class="card-title">Ingredients</h5>
+                  <p class="card-text"> ${ing1}</p>
+                  <p class="card-text"> ${ing2}</p>
+                  <p class="card-text"> ${ing3}</p>
+                  <p class="card-text"> ${ing4}</p>
+
+              <p class="card-text"><B>Food: ${mealName}</B></p>
               <img src=${mealImage} alt="Meal Icon" class="img-fluid">
               <button class="btn btn-primary like-button" data-cocktail-name="${name}">Like</button>
             </div>
@@ -178,6 +231,8 @@ function drinkCard(data, howToMake, alcoOrNot, mealName, mealImage) {
   return card;
 }
 
+
+
 // Event handler for MixIt button
 $("#searchButton").on("click", function (event) {
   // Preventing propagation of the event
@@ -186,13 +241,22 @@ $("#searchButton").on("click", function (event) {
   // Storing the drink name insert by the user
   const inputDrink = $("#ingredients").val().trim();
 
+  //Storing if the user wants an alcoholic/non alcoholic options
+  const alcoholic =  $("#alcoholType").val().trim();
+  
   //throw an error if user input cocktail name is empty
   if (!inputDrink) {
     console.error("Please enter any ingredient!");
     return;
   }
+
+   // Adding drink from the textbox to our array of drinks search
+   drinks.push(inputDrink);
+   console.log(drinks);
+
+
   // Adding drink from the textbox to our array of drinks search
-  searchDrink(inputDrink);
+    searchDrink(inputDrink, alcoholic);
 });
 
 // Created an event for handling "Like" button click and saving it in local storage
