@@ -1,116 +1,189 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- Bootstrap CSS -->
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
-      crossorigin="anonymous"
-    />
-
-    <link rel="stylesheet" href="../assets/style.css" />
-    <title>GrinAndGin</title>
+    <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+      <!-- Bootstrap CSS -->
+      <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+        crossorigin="anonymous"
+      />
+      <!-- Bootstrap Icons library -->
+  
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css"
+      />
+  
+      <link rel="stylesheet" href="../assets/style.css" />
+      <!-- jQuery -->
+      <script
+        src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+        crossorigin="anonymous"
+      ></script>
+      <title>GrinAndGin</title>
   </head>
   <body>
-    <!-- HEADER -->
-    <header id="header" class="container-fluid">
-      <div id="logo" class="navbar-logo">
-        <img src="../Images/grinandgin canva ai.png" alt="GrinAndGin Logo" />
+   <!-- HEADER -->
+   <header id="header" class="container-fluid">
+    <div class="row">
+      <div class="col">
+        <div id="logo" class="navbar-logo">
+          <img src="../Images/nav_name_logo.png" alt="GrinAndGin Logo" />
+          <img
+            src="../Images/grinandgin canva ai.png"
+            alt="GrinAndGin Picture"
+          />
+        </div>
       </div>
-      <nav class="navbar navbar-expand-lg navCustom">
-        <ul class="nav nav-pills row justify-content-center">
-          <li class="nav-item col"><a href="../index.html">Home</a></li>
-          <li class="nav-item about col">
-            <a href="../pages/about.html">About</a>
-          </li>
 
-          <li class="nav-item dropdown col">
-            <a
-              class="nav-link dropdown-toggle dropdown-toggleCustom"
-              data-toggle="dropdown"
-              href="#"
-              role="button"
-              aria-haspopup="true"
-              aria-expanded="false"
-              >Cocktails</a
-            >
-            <div class="dropdown-menu dropdown">
-              <a class="dropdown-item" href="./allCocktails.html">All</a>
-              <a class="dropdown-item" href="./favCocktails.html">Favourite</a>
-            </div>
-          </li>
-          <li class="nav-item col">
-            <a href="../pages/food_recipes.html">Food recipes</a>
-          </li>
-          <li class="nav-item col"><a href="#contacts">Contact Us</a></li>
-        </ul>
-      </nav>
-    </header>
-    <!-- END HEADER -->
+      <div class="col">
+        <nav class="navbar navbar-expand-lg navCustom">
+          <ul class="nav nav-pills row justify-content-center">
+            <li class="nav-item col"><a href="../index.html">Home</a></li>
+            <li class="nav-item about col">
+              <a href="./about.html">About</a>
+            </li>
+            <li class="nav-item dropdown col">
+              <a
+                class="nav-link dropdown-toggle dropdown-toggleCustom"
+                data-toggle="dropdown"
+                href="#"
+                role="button"
+                aria-haspopup="true"
+                aria-expanded="false"
+                >Cocktails</a
+              >
+              <div class="dropdown-menu dropdown">
+                <a class="dropdown-item" href="../pages/allCocktails.html"
+                  >All</a
+                >
+                <a class="dropdown-item" href="../pages/favCocktails.html"
+                  >Favourite</a
+                >
+              </div>
+            </li>
+            <li class="nav-item col">
+              <a href="./food_recipes.html">Food recipes</a>
+            </li>
+            <li class="nav-item col"><a href="#contacts">Contact Us</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </header>
+  <!-- END HEADER -->
 
     <main>
       <h1>ALL COCKTAILS GOES THERE</h1>
 
       <!-- CONTACTS -->
-      <section>
-        <h2 id="contacts">Contact Us</h2>
-        <p>Feel free to reach out to us for any inquiries or collaborations.</p>
+      <section class="contacts-section py-5">
+        <div class="container">
+          <h2 id="contacts" class="text-center mb-4">Contact Us</h2>
+          <p class="text-center contacts-text">
+            Feel free to reach out to us for any inquiries or collaborations.
+          </p>
 
-        <ul>
-          <li><strong>Creators:</strong></li>
-          <li>
-            <a href="https://github.com/ToniY97" target="_blank"
-              >Antonia Yovcheva</a
-            >
-          </li>
-          <li>
-            <a href="https://github.com/Joeviser" target="_blank"
-              >Maria Isabel Solana</a
-            >
-          </li>
-          <li>
-            <a href="https://github.com/Anna702" target="_blank"
-              >Anna Chernova</a
-            >
-          </li>
-        </ul>
+          <div class="row justify-content-center">
+            <div class="col-md-4">
+              <h4 class="text-center mb-3"><strong>Creators</strong></h4>
+              <ul class="list-unstyled">
+                <li class="text-center mb-2">
+                  <a
+                    class="li-creators"
+                    href="https://github.com/ToniY97"
+                    target="_blank"
+                    ><i class="bi bi-person-circle"></i> Antonia Yovcheva</a
+                  >
+                </li>
+                <li class="text-center mb-2">
+                  <a
+                    class="li-creators"
+                    href="https://github.com/Joeviser"
+                    target="_blank"
+                    ><i class="bi bi-person-circle"></i> Maria Isabel
+                    Solana</a
+                  >
+                </li>
+                <li class="text-center mb-2">
+                  <a
+                    class="li-creators"
+                    href="https://github.com/Anna702"
+                    target="_blank"
+                    ><i class="bi bi-person-circle"></i> Anna Chernova</a
+                  >
+                </li>
+              </ul>
+            </div>
 
-        <p>Project on GitHub:</p>
-        <a href="https://github.com/Anna702/GrinAndGin" target="_blank"
-          >GitHub - GrinAndGin</a
-        ><br />
+            <div class="col-md-4">
+              <h4 class="text-center mb-3">Project on GitHub</h4>
+              <p class="text-center">
+                <a
+                  class="li-creators"
+                  href="https://github.com/Anna702/GrinAndGin"
+                  target="_blank"
+                  ><i class="bi bi-github"></i> GrinAndGin</a
+                >
+              </p>
+            </div>
+          </div>
+        </div>
       </section>
-
       <!-- END CONTACTS -->
-    </main>
+    </div>
+  </main>
+  <!-- END MAIN -->
 
-    <!-- FOOTER -->
-    <footer>
-      <p>
-        &copy; 2024 GrinAndGin.<br />
-        All rights reserved. <br />Enjoy a refreshing cocktail! 🍹
+  <script src="./assets/js/script.js"></script>
+
+  <!-- Footer -->
+  <footer class="bg-dark text-light text-center py-4 footerCustom">
+    <div class="container-fluid">
+      <p class="footer-p-1 text-sm text-xs">&copy; 2024 GrinAndGin.</p>
+      <p class="footer-p-2 text-sm text-xs">
+        All rights reserved. Enjoy a refreshing cocktail! 🍹
       </p>
-    </footer>
-    <!-- END FOOTER -->
-    <!----------- Bootstrap JS ---------->
-    <script
-      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
-      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
-      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-      crossorigin="anonymous"
-    ></script>
-    <!---------- END Bootstrap JS ------->
-  </body>
+
+      <!-- Facebook Share Button -->
+      <a
+        href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fyour-website-url.com"
+        target="_blank"
+        class="btn btn-primary btn-sm mb-2"
+      >
+        Share <i class="bi bi-facebook"></i>
+      </a>
+
+      <!-- Twitter Share Button -->
+      <a
+        href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fyour-website-url.com&text=Check%20out%20GrinAndGin%20-%20a%20refreshing%20cocktail%20experience!"
+        target="_blank"
+        class="btn btn-info btn-sm mb-2"
+      >
+        Share <i class="bi bi-twitter"></i>
+      </a>
+    </div>
+  </footer>
+  <!-- END Footer -->
+
+  <!----------- Bootstrap JS ---------->
+  <script
+    src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"
+  ></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"
+  ></script>
+  <!---------- END Bootstrap JS ------->
+  <!-- <script src="../assets/js/food.js"></script> -->
+</body>
 </html>
