@@ -200,11 +200,21 @@ $("#container").on("click", ".like-button", function () {
   const cocktailName = $(this).data("cocktail-name");
   const likedCocktails = JSON.parse(localStorage.getItem("likedCocktails")) || [];
 
-  if (!likedCocktails.includes(cocktailName)) {
-    likedCocktails.push(cocktailName);
-    localStorage.setItem("likedCocktails", JSON.stringify(likedCocktails));
-    alert(`You liked the cocktail: ${cocktailName}`);
-  } else {
+// First check if the cocktail is already liked
+if (!likedCocktails.includes(cocktailName)) {
+  likedCocktails.push(cocktailName);
+  localStorage.setItem("likedCocktails", JSON.stringify(likedCocktails));
+  alert(`You liked the cocktail: ${cocktailName}`);
+} else {
+  // Now checking if it's the second click on the same recipe
+  const clickCount = $(this).data("click-count") || 0;
+  
+  if (clickCount === 1) {
+    // Display alert for a repeat like only on the second click
     alert(`You already liked the cocktail: ${cocktailName}`);
   }
+  
+  // Code to update the click count
+  $(this).data("click-count", clickCount + 1);
+}
 });
