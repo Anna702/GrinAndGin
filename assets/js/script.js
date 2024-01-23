@@ -159,6 +159,7 @@ function drinkCard(data, howToMake, alcoOrNot, mealName, mealImage) {
   const name = data.strDrink;
   const imgURL = data.strDrinkThumb;
 
+  //Added a line at the end for the like button in the html js script
   const card = `
   <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
           <div class="card">
@@ -169,6 +170,7 @@ function drinkCard(data, howToMake, alcoOrNot, mealName, mealImage) {
               <p class="card-text">Type: ${alcoOrNot}</p>
               <p class="card-text">Food: ${mealName}</p>
               <img src=${mealImage} alt="Meal Icon" class="img-fluid">
+              <button class="btn btn-primary like-button" data-cocktail-name="${name}">Like</button>
             </div>
           </div>
   </div>
@@ -191,4 +193,28 @@ $("#searchButton").on("click", function (event) {
   }
   // Adding drink from the textbox to our array of drinks search
   searchDrink(inputDrink);
+});
+
+// Created an event for handling "Like" button click and saving it in local storage
+$("#container").on("click", ".like-button", function () {
+  const cocktailName = $(this).data("cocktail-name");
+  const likedCocktails = JSON.parse(localStorage.getItem("likedCocktails")) || [];
+
+// First check if the cocktail is already liked
+if (!likedCocktails.includes(cocktailName)) {
+  likedCocktails.push(cocktailName);
+  localStorage.setItem("likedCocktails", JSON.stringify(likedCocktails));
+  alert(`You liked the cocktail: ${cocktailName}`);
+} else {
+  // Now checking if it's the second click on the same recipe
+  const clickCount = $(this).data("click-count") || 0;
+  
+  if (clickCount === 1) {
+    // Display alert for a repeat like only on the second click
+    alert(`You already liked the cocktail: ${cocktailName}`);
+  }
+  
+  // Code to update the click count
+  $(this).data("click-count", clickCount + 1);
+}
 });
