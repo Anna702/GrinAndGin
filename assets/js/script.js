@@ -83,9 +83,7 @@ function searchDrink(drink,alcoholic) {
         const secondQueryUrl = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${listOfDrinks[i].strDrink}`;
         //getJSON is always async, thay is why here we use ajax - to wait for an answer from API before going further
 
-        // console.log("list: "+listOfDrinks[i].strDrink);
-        // console.log("data: "+data.drinks[i].strDrink);
-        // console.log(alcoholic);
+      
 
         $.ajax({
           type: "GET",
@@ -105,7 +103,7 @@ function searchDrink(drink,alcoholic) {
 
 
             //add 3rd queryURL
-            // Spoonacular API based on the search ingredient
+            //The meal DB API - search based on the user input ingredient
             let foodQueryUrl = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${drink}`;
 
             $.ajax({
@@ -138,20 +136,27 @@ function searchDrink(drink,alcoholic) {
                       );
                     },
                   });
-                } else {
-                  console.log(foodData);
-                  const mealName = foodData.meals[0].strMeal;
-                  const mealImage = foodData.meals[0].strMealThumb;
-                  console.log(mealName, mealImage);
-
-                  // Add cocktail name and recipe to cardsHtml
-                  cardsHtml += drinkCard(
-                    listOfDrinks[i],
-                    howToMake,
-                    alcoOrNot,
-                    mealName,
-                    mealImage
+                }
+                //else - get a random recipe with an input ingredient in it and attach it to the card
+                else {
+                  const differentMatchingMeals = getRandomElements(
+                    foodData.meals,
+                    1
                   );
+                  // Loop through each meal in differentMatchingMeals
+                  for (let j = 0; j < differentMatchingMeals.length; j++) {
+                    const mealName = differentMatchingMeals[j].strMeal;
+                    const mealImage = differentMatchingMeals[j].strMealThumb;
+
+                    // Add cocktail name and recipe to cardsHtml
+                    cardsHtml += drinkCard(
+                      listOfDrinks[i],
+                      howToMake,
+                      alcoOrNot,
+                      mealName,
+                      mealImage
+                    );
+                  }
                 }
               },
             });
@@ -177,25 +182,30 @@ function drinkCard(data, howToMake, alcoOrNot, mealName, mealImage) {
 
 
   if (data.strIngredient1!== null) {
-     var ing1= `${data.strIngredient1} `+ " - "+`${data.strMeasure1} `;
-   }else{
-      ing1= " ";
-  }
-  if (data.strIngredient2!== null) {
-     var ing2= `${data.strIngredient2} `+ " - "+`${data.strMeasure2} `;
-  }else{
-      ing2= " ";
-  }
-  if (data.strIngredient3!== null) {
-     var ing3= `${data.strIngredient3} `+ " - "+`${data.strMeasure3} `;
-  }else{
-      ing3= " ";
-  }
-  if (data.strIngredient4!== null) {
-      var ing4= `${data.strIngredient4} `+ " - "+`${data.strMeasure4} `;
-  }else{
-      ing4= " ";
-  }
+    var ing1= `${data.strIngredient1} `+ " - "+`${data.strMeasure1} `;
+   }
+   else{
+    ing1= " ";
+     }
+    if (data.strIngredient2!== null) {
+        var ing2= `${data.strIngredient2} `+ " - "+`${data.strMeasure2} `;
+       }
+     else{
+        ing2= " ";
+     }
+     if (data.strIngredient3!== null) {
+       var ing3= `${data.strIngredient3} `+ " - "+`${data.strMeasure3} `;
+       }
+       else{
+        ing3= " ";
+         }
+    if (data.strIngredient4!== null) {
+    ing4= `${data.strIngredient4} `+ " - "+`${data.strMeasure4} `;
+        
+    }else{
+       var ing4= " ";
+    }
+
   const card = `
   <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
           <div class="card">
