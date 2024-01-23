@@ -62,9 +62,12 @@ header {
   margin-bottom: 10px;
 }
 
-footer-p-1,
-footer-p-2 {
-  font-size: smaller;
+.footer-p-1.text-sm {
+  font-size: 12px;
+}
+
+.footer-p-2.text-xs {
+  font-size: 12px;
 }
 
 .ingredients-input-section {
