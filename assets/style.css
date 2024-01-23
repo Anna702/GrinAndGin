@@ -1,5 +1,5 @@
 .pageWrapper {
-  padding: 50px;
+  padding: 20px;
 }
 
 #logo img {
@@ -30,4 +30,45 @@ header {
   margin: 5px;
   background-color: #fbf2b3;
   border-radius: 5px;
+}
+
+.li-creators {
+  color: black;
+}
+
+.contacts-text {
+  color: black;
+  transition: color 0.3s ease;
+}
+
+.li-creators:hover {
+  color: #f85b52;
+}
+
+.mix-it-btn {
+  color: black;
+  background-color: #f2a19d;
+  border: black solid 2.5px;
+}
+
+.contacts-section {
+  background-color: #bfdba0;
+}
+
+footer-p-1,
+footer-p-2 {
+  font-size: smaller;
+}
+
+.ingredients-input-section {
+  margin: 20px;
+}
+
+.jumbo-text {
+  margin: 10px;
+}
+
+.input-label-text {
+  font-size: larger;
+  font-weight: bold;
 }
