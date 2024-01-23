@@ -34,6 +34,7 @@
 var drinks = [];
 //Function to get random elements from drinks array (that we got from API call)
 function getRandomElements(array, count) {
+  
   const arrayLength = array.length;
   let randomIndices = [];
 
@@ -55,7 +56,7 @@ function getRandomElements(array, count) {
   const randomElements = randomIndices.map(function (index) {
     return array[index];
   });
-
+  
   return randomElements;
 }
 
@@ -73,6 +74,12 @@ function searchDrink(drink,alcoholic) {
     //getJSON is always async,
     .done(function (data) {
       console.log(data.drinks);
+
+      if (data.drinks===null){
+        //in case there isn't any cocktails with the criteria required
+        alert(`There is no cocktails with ${drink} (${alcoholic})`);
+        
+      }else{
       let listOfDrinks = getRandomElements(data.drinks, 9); //this is our array of displayed drinks (if we need more/less to display - just change a number)
       console.log(listOfDrinks);
 
@@ -100,7 +107,7 @@ function searchDrink(drink,alcoholic) {
       
             //filter by alcoholic/non alcoholic options given by user input
             if (dataInstructions.drinks[0].strAlcoholic === alcoholic){
-
+              
 
             //add 3rd queryURL
             //The meal DB API - search based on the user input ingredient
@@ -160,12 +167,17 @@ function searchDrink(drink,alcoholic) {
                 }
               },
             });
-          }//if
+          }//if 
+          else{
+            //in case there isn't any cocktails with the criteria required
+            alert(`There is no cocktails with ${drink} (${alcoholic})`);
+          }
           },
         });
       }
       // Set the accumulated HTML content to #container
       $("#container").html(cardsHtml);
+    }//null
     })
     .fail(function (data) {
       console.log(data);
