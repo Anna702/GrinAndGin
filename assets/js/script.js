@@ -300,6 +300,10 @@ function drinkCard(data, howToMake, alcoOrNot, mealName, mealImage) {
             data-meal-name="${mealName}"
             data-meal-image="${mealImage}"
             data-img-url="${imgURL}"
+            data-ing1="${data.strIngredient1}" 
+            data-ing2="${data.strIngredient2}"  
+            data-ing3="${data.strIngredient3}"  
+            data-ing4="${data.strIngredient4}"  
 
               <button class="btn btn-primary like-button" data-cocktail-name="${name}">Like</button>
             </div>
