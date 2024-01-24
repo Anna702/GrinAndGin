@@ -298,10 +298,10 @@ function drinkCard(data, howToMake, alcoOrNot, mealName, mealImage) {
             data-meal-name="${mealName}"
             data-meal-image="${mealImage}"
             data-img-url="${imgURL}"
-            data-ing1="${data.strIngredient1}" 
-            data-ing2="${data.strIngredient2}"  
-            data-ing3="${data.strIngredient3}"  
-            data-ing4="${data.strIngredient4}"  
+            data-ing1="${data.strIngredient1} - ${data.strMeasure1}" 
+            data-ing2="${data.strIngredient2} - ${data.strMeasure2}"  
+            data-ing3="${data.strIngredient3} - ${data.strMeasure3}"  
+            data-ing4="${data.strIngredient4} - ${data.strMeasure4}"  
 
               <button class="btn btn-primary like-button" data-cocktail-name="${name}">Add to favourites</button>
             </div>
@@ -357,9 +357,11 @@ $("#container").on("click", ".like-button", function () {
     ],
   };
 
+
   const likedCocktails =
     JSON.parse(localStorage.getItem("likedCocktails")) || [];
   console.log(cocktailData);
+
   // First check if the cocktail is already liked
   if (!likedCocktails.some((cocktail) => cocktail.name === cocktailData.name)) {
     likedCocktails.push(cocktailData);
