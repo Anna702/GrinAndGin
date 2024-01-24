@@ -290,7 +290,7 @@ function drinkCard(data, howToMake, alcoOrNot, mealName, mealImage) {
         <h5 class="card-text howToMixText card-text-center">Try it with:</h5>
         <p class="text-center card-title">${mealName}</p>
 
-          <img src=${mealImage} alt="Meal Icon" class="img-fluid">
+          <img src=${mealImage} alt="Meal Image" class="img-fluid">
           <button class="btn btn-primary like-button"
             data-cocktail-name="${name}"
             data-how-to-make="${howToMake}"
