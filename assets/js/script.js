@@ -59,6 +59,37 @@ function getRandomElements(array, count) {
   return randomElements;
 }
 
+function modalMessage (){
+  const messageModal = `
+
+
+<div class="modal fade" id="messageModal" tabindex="-1" role="dialog" aria-labelledby="messageModalTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Message</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true"> &times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>There are 0 cocktails found with that criteria.</p>
+        <p>Let's search again!</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+`;
+
+ // Append the modal to the body
+ $("body").append(messageModal );
+}
+
+
 // Function to search for a drink by ingredient
 function searchDrink(drink,alcoholic) {
   //Search By INGREDIENT
@@ -74,10 +105,29 @@ function searchDrink(drink,alcoholic) {
     .done(function (data) {
       console.log(data.drinks);
       if (data.drinks===null){
-        alert(`There is no cocktails with ${drink} (${alcoholic})`);
-      }else{
+        //alert(`There is no cocktails with ${drink} (${alcoholic})`);
+       // modalMessage (drink,alcoholic);
+       $(document).ready(function(){
+          modalMessage ();
+          $("#messageModal").modal();
+        
+      });
+
+       }else{
       let listOfDrinks = getRandomElements(data.drinks, 9); //this is our array of displayed drinks (if we need more/less to display - just change a number)
       console.log(listOfDrinks);
+
+
+      if (data.drinks===null){
+        //alert(`There is no cocktails with ${drink} (${alcoholic})`);
+       // modalMessage (drink,alcoholic);
+       $(document).ready(function(){
+          modalMessage ();
+          $("#messageModal").modal();
+        
+      });
+
+      }else{
 
       //creating a new query URL for the second API call - with coctail names
       let cardsHtml = ""; // Accumulate HTML content for each cocktail card
@@ -165,18 +215,29 @@ function searchDrink(drink,alcoholic) {
             });
           }//if
           else{
-            alert(`There is no cocktails with ${drink} (${alcoholic})`);
+            //alert(`There is no cocktails with ${drink} (${alcoholic})`);
+            $(document).ready(function(){
+              modalMessage ();
+              $("#messageModal").modal();
+            
+            });
           }
           },
         });
       }
       // Set the accumulated HTML content to #container
       $("#container").html(cardsHtml);
+    }//else
     }
     })
     .fail(function (data) {
       console.log(data);
-      alert("Could not find any drink with this ingredient");
+      //alert("Could not find any drink with this ingredient");
+      $(document).ready(function(){
+        modalMessage ();
+        $("#messageModal").modal();
+      
+      });
     });
 }
 
