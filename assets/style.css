@@ -2,6 +2,14 @@
   padding: 20px;
 }
 
+/* HEADER */
+
+header {
+  margin-bottom: 30px;
+  background-color: #bfdba0;
+  padding: 10px;
+}
+
 #logo img {
   width: 150px;
   height: auto;
@@ -15,24 +23,27 @@
   margin: 0;
 }
 
+.jumbo-text {
+  margin: 10px;
+}
+
 ul {
   list-style-type: none;
 }
 
-header {
-  margin-bottom: 30px;
-  background-color: #bfdba0;
-  padding: 10px;
-}
+/* END HEADER  */
 
-.nav-item {
-  margin: 5px;
-  background-color: #fbf2b3;
-  border-radius: 5px;
-}
+/* CONTACTS */
 
 .li-creators {
   color: black;
+}
+
+.li-creators:hover {
+  color: #f85b52;
+}
+.contacts-section {
+  background-color: #bfdba0;
 }
 
 .contacts-text {
@@ -40,9 +51,7 @@ header {
   transition: color 0.3s ease;
 }
 
-.li-creators:hover {
-  color: #f85b52;
-}
+/* HOME - MIX IT */
 
 .mix-it-btn {
   color: black;
@@ -54,34 +63,20 @@ header {
   margin-bottom: 15px;
 }
 
-.contacts-section {
-  background-color: #bfdba0;
-}
-
 .label-choose {
   margin-bottom: 10px;
-}
-
-.footer-p-1.text-sm {
-  font-size: 12px;
-}
-
-.footer-p-2.text-xs {
-  font-size: 12px;
 }
 
 .ingredients-input-section {
   margin: 20px;
 }
 
-.jumbo-text {
-  margin: 10px;
-}
-
 .input-label-text {
   font-size: larger;
   font-weight: bold;
 }
+
+/* ABOUT PAGE */
 
 .ul-about-us {
   list-style-type: disc;
@@ -95,8 +90,14 @@ header {
   text-decoration: none;
 }
 
+/* END ABOUT PAGE */
+
+/* NAV */
+
 .nav-item {
-  margin: 7px;
+  margin: 5px;
+  background-color: #fbf2b3;
+  border-radius: 5px;
 }
 
 .nav-pills {
@@ -130,6 +131,54 @@ header {
   background-color: #fbf2b3;
 }
 
+/* END NAV */
+
+/* ALL FOOD */
+
 .top-btn {
   margin: 15px;
+}
+
+.btn-cook {
+  background-color: #f85b52;
+  color: #fff;
+  margin: 10px;
+}
+
+.card-title {
+  font-size: 1.25rem;
+}
+
+.card-body {
+  text-align: center;
+}
+
+.foodCard-img {
+  border-radius: 8px;
+}
+
+.card-body h5 {
+  color: #2a4703;
+}
+
+.modal-header {
+  background-color: #f85b52;
+}
+
+.ingredientsModal {
+  text-align: center;
+  margin: 7px;
+  font-size: 20px;
+}
+
+/* END ALL FOOD */
+
+/* FOOTER */
+
+.footer-p-1.text-sm {
+  font-size: 12px;
+}
+
+.footer-p-2.text-xs {
+  font-size: 12px;
 }
