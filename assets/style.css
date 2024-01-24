@@ -110,6 +110,20 @@ ul {
   text-align: justify;
 }
 
+.like-button {
+  margin: 7px;
+  background-color: #afd206;
+  color: #2a4703;
+  border: solid #2a4703 1.5px;
+}
+
+.like-button:hover {
+  margin: 7px;
+  background-color: #f85b52;
+  color: white;
+  border: solid #2a4703 1.5px;
+}
+
 /* END SEARCH RESULT CARD */
 
 /* ABOUT PAGE */
