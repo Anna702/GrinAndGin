@@ -2,7 +2,7 @@
   padding: 20px;
 }
 
-.indexMain{
+.indexMain {
   background-image: url("../Images/cocktails_background.png");
 }
 
@@ -24,6 +24,10 @@ header {
   border-radius: 15px;
   width: 100%;
   margin: 0;
+}
+
+.jumbotron img {
+  border-radius: 15px;
 }
 
 .jumbo-text {
@@ -60,6 +64,7 @@ ul {
   color: black;
   background-color: #f2a19d;
   border: black solid 2.5px;
+  margin: 10px;
 }
 
 .input-dropdown {
