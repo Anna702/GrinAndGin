@@ -72,8 +72,24 @@
 </header>
 <!-- END HEADER -->
 
-    <main>
-      <h1>ALL COCKTAILS GOES THERE</h1>
+    <main class="indexAllCocktails">
+     
+        <div class="text-center mb-4">
+          <h1 class="allCocktailsH1 display-6">Every drink is a journey:</br> explore our menu and find your favorite sip!</h1>
+        </div>
+      <!--Cards to show all food recipes-->
+      <div class="row pb-3" id="cocktailsContainer">
+        <section id="cocktailCard" class="col-lg-9"></section>
+      </div>
+
+      <!-- back to top btn -->
+      <div class="container mt-5">
+        <div class="row justify-content-center">
+          <div class="col-auto">
+            <a  href="#header"><button class="btn bg-dark text-light top-btn">Back to top <i class="bi bi-arrow-bar-up"></i></button></a>
+          </div>
+        </div>
+      </div>
 
       <!-- CONTACTS -->
       <section class="contacts-section py-5">
@@ -134,8 +150,6 @@
   </main>
   <!-- END MAIN -->
 
-  <script src="./assets/js/script.js"></script>
-
   <!-- Footer -->
   <footer class="bg-dark text-light text-center py-4 footerCustom">
     <div class="container-fluid">
@@ -177,6 +191,6 @@
     crossorigin="anonymous"
   ></script>
   <!---------- END Bootstrap JS ------->
-  <!-- <script src="../assets/js/food.js"></script> -->
+  <script src="../assets/js/allCocktails.js"></script>
 </body>
 </html>
