@@ -2,10 +2,13 @@
   padding: 20px;
 }
 
+.indexMain{
+  background-image: url("../Images/cocktails_background.png");
+}
+
 /* HEADER */
 
 header {
-  margin-bottom: 30px;
   background-color: #bfdba0;
   padding: 10px;
 }
