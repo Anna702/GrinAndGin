@@ -89,6 +89,36 @@ function modalMessage (){
  $("body").append(messageModal );
 }
 
+function modalMessage1 (){
+  const messageModal1 = `
+
+
+<div class="modal fade" id="messageModal1" tabindex="-1" role="dialog" aria-labelledby="messageModalTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Message</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true"> &times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p></p>
+        <p>Please enter any ingredient!</p>
+        <p>Let's search again!</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+`;
+
+ // Append the modal to the body
+ $("body").append(messageModal1 );
+}
 
 // Function to search for a drink by ingredient
 function searchDrink(drink,alcoholic) {
@@ -243,54 +273,34 @@ function searchDrink(drink,alcoholic) {
 
 // Function to display drinks on the page
 function drinkCard(data, howToMake, alcoOrNot, mealName, mealImage) {
-  console.log(mealName);
-  // Retrieving the URL for the image
   const name = data.strDrink;
   const imgURL = data.strDrinkThumb;
 
-
-  if (data.strIngredient1!== null) {
-    var ing1= `${data.strIngredient1} `+ " - "+`${data.strMeasure1} `;
-   }
-   else{
-    ing1= " ";
-     }
-    if (data.strIngredient2!== null) {
-        var ing2= `${data.strIngredient2} `+ " - "+`${data.strMeasure2} `;
-       }
-     else{
-        ing2= " ";
-     }
-     if (data.strIngredient3!== null) {
-       var ing3= `${data.strIngredient3} `+ " - "+`${data.strMeasure3} `;
-       }
-       else{
-        ing3= " ";
-         }
-    if (data.strIngredient4!== null) {
-    ing4= `${data.strIngredient4} `+ " - "+`${data.strMeasure4} `;
-        
-    }else{
-       var ing4= " ";
-    }
-
   const card = `
-  <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
-          <div class="card">
-            <div class="card-body">
-              <h2 class="card-title">${name}</h2>
-              <p class="card-text">Type: ${alcoOrNot}</p>
-              <img src=${imgURL} alt="Cocktail Icon" class="img-fluid">
-              <p class="card-text">How to make : ${howToMake}</p>
-        
-              <h5 class="card-title">Ingredients</h5>
-                  <p class="card-text"> ${ing1}</p>
-                  <p class="card-text"> ${ing2}</p>
-                  <p class="card-text"> ${ing3}</p>
-                  <p class="card-text"> ${ing4}</p>
+    <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+      <div class="card">
+        <div class="card-body">
+          <h2 class="card-title">${name}</h2>
+          <p class="card-text">Type: ${alcoOrNot}</p>
+          <img src=${imgURL} alt="Cocktail Icon" class="img-fluid">
+          <p class="card-text">How to make : ${howToMake}</p>
 
-              <p class="card-text"><B>Food: ${mealName}</B></p>
-              <img src=${mealImage} alt="Meal Icon" class="img-fluid">
+          <h5 class="card-title">Ingredients</h5>
+          <p class="card-text">${data.strIngredient1} - ${data.strMeasure1}</p>
+          <p class="card-text">${data.strIngredient2} - ${data.strMeasure2}</p>
+          <p class="card-text">${data.strIngredient3} - ${data.strMeasure3}</p>
+          <p class="card-text">${data.strIngredient4} - ${data.strMeasure4}</p>
+
+          <p class="card-text"><B>Food: ${mealName}</B></p>
+          <img src=${mealImage} alt="Meal Icon" class="img-fluid">
+          <button class="btn btn-primary like-button"
+            data-cocktail-name="${name}"
+            data-how-to-make="${howToMake}"
+            data-alco-or-not="${alcoOrNot}"
+            data-meal-name="${mealName}"
+            data-meal-image="${mealImage}"
+            data-img-url="${imgURL}"
+
               <button class="btn btn-primary like-button" data-cocktail-name="${name}">Like</button>
             </div>
           </div>
@@ -314,7 +324,12 @@ $("#searchButton").on("click", function (event) {
   
   //throw an error if user input cocktail name is empty
   if (!inputDrink) {
-    console.error("Please enter any ingredient!");
+    //console.error("Please enter any ingredient!");
+    $(document).ready(function(){
+      modalMessage1 ();
+      $("#messageModal1").modal();
+    
+    });
     return;
   }
 
@@ -329,24 +344,38 @@ $("#searchButton").on("click", function (event) {
 
 // Created an event for handling "Like" button click and saving it in local storage
 $("#container").on("click", ".like-button", function () {
-  const cocktailName = $(this).data("cocktail-name");
-  const likedCocktails = JSON.parse(localStorage.getItem("likedCocktails")) || [];
+  const cocktailData = {
+    name: $(this).data("cocktail-name"),
+    howToMake: $(this).data("how-to-make"),
+    alcoOrNot: $(this).data("alco-or-not"),
+    mealName: $(this).data("meal-name"),
+    mealImage: $(this).data("meal-image"),
+    imgURL: $(this).data("img-url"),
+    ingredients: [
+      $(this).data("ing1"),
+      $(this).data("ing2"),
+      $(this).data("ing3"),
+      $(this).data("ing4"),
+    ],
+  };
 
-// First check if the cocktail is already liked
-if (!likedCocktails.includes(cocktailName)) {
-  likedCocktails.push(cocktailName);
-  localStorage.setItem("likedCocktails", JSON.stringify(likedCocktails));
-  alert(`You liked the cocktail: ${cocktailName}`);
-} else {
-  // Now checking if it's the second click on the same recipe
-  const clickCount = $(this).data("click-count") || 0;
-  
-  if (clickCount === 1) {
-    // Display alert for a repeat like only on the second click
-    alert(`You already liked the cocktail: ${cocktailName}`);
+  const likedCocktails = JSON.parse(localStorage.getItem("likedCocktails")) || [];
+  console.log(cocktailData)
+  // First check if the cocktail is already liked
+  if (!likedCocktails.some(cocktail => cocktail.name === cocktailData.name)) {
+    likedCocktails.push(cocktailData);
+    localStorage.setItem("likedCocktails", JSON.stringify(likedCocktails));
+    alert(`You liked the cocktail: ${cocktailData.name}`);
+  } else {
+    // Now checking if it's the second click on the same recipe
+    const clickCount = $(this).data("click-count") || 0;
+
+    if (clickCount === 1) {
+      // Display alert for a repeat like, only on the second click
+      alert(`You already liked the cocktail: ${cocktailData.name}`);
+    }
+
+    // Code to update the click count
+    $(this).data("click-count", clickCount + 1);
   }
-  
-  // Code to update the click count
-  $(this).data("click-count", clickCount + 1);
-}
 });
