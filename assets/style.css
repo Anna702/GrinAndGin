@@ -6,6 +6,10 @@
   background-image: url("../Images/cocktails_background.png");
 }
 
+.indexAllCocktails {
+  background-image: url("../Images/cocktails_background.png");
+}
+
 /* HEADER */
 
 header {
@@ -180,6 +184,13 @@ ul {
 }
 
 /* END ALL FOOD */
+
+/* ALL COCKTAILS */
+.allCocktailsH1 {
+  padding: 15px;
+}
+
+/* END ALL COCKTAILS */
 
 /* FOOTER */
 
