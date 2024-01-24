@@ -182,54 +182,34 @@ function searchDrink(drink,alcoholic) {
 
 // Function to display drinks on the page
 function drinkCard(data, howToMake, alcoOrNot, mealName, mealImage) {
-  console.log(mealName);
-  // Retrieving the URL for the image
   const name = data.strDrink;
   const imgURL = data.strDrinkThumb;
 
-
-  if (data.strIngredient1!== null) {
-    var ing1= `${data.strIngredient1} `+ " - "+`${data.strMeasure1} `;
-   }
-   else{
-    ing1= " ";
-     }
-    if (data.strIngredient2!== null) {
-        var ing2= `${data.strIngredient2} `+ " - "+`${data.strMeasure2} `;
-       }
-     else{
-        ing2= " ";
-     }
-     if (data.strIngredient3!== null) {
-       var ing3= `${data.strIngredient3} `+ " - "+`${data.strMeasure3} `;
-       }
-       else{
-        ing3= " ";
-         }
-    if (data.strIngredient4!== null) {
-    ing4= `${data.strIngredient4} `+ " - "+`${data.strMeasure4} `;
-        
-    }else{
-       var ing4= " ";
-    }
-
   const card = `
-  <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
-          <div class="card">
-            <div class="card-body">
-              <h2 class="card-title">${name}</h2>
-              <p class="card-text">Type: ${alcoOrNot}</p>
-              <img src=${imgURL} alt="Cocktail Icon" class="img-fluid">
-              <p class="card-text">How to make : ${howToMake}</p>
-        
-              <h5 class="card-title">Ingredients</h5>
-                  <p class="card-text"> ${ing1}</p>
-                  <p class="card-text"> ${ing2}</p>
-                  <p class="card-text"> ${ing3}</p>
-                  <p class="card-text"> ${ing4}</p>
+    <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+      <div class="card">
+        <div class="card-body">
+          <h2 class="card-title">${name}</h2>
+          <p class="card-text">Type: ${alcoOrNot}</p>
+          <img src=${imgURL} alt="Cocktail Icon" class="img-fluid">
+          <p class="card-text">How to make : ${howToMake}</p>
 
-              <p class="card-text"><B>Food: ${mealName}</B></p>
-              <img src=${mealImage} alt="Meal Icon" class="img-fluid">
+          <h5 class="card-title">Ingredients</h5>
+          <p class="card-text">${data.strIngredient1} - ${data.strMeasure1}</p>
+          <p class="card-text">${data.strIngredient2} - ${data.strMeasure2}</p>
+          <p class="card-text">${data.strIngredient3} - ${data.strMeasure3}</p>
+          <p class="card-text">${data.strIngredient4} - ${data.strMeasure4}</p>
+
+          <p class="card-text"><B>Food: ${mealName}</B></p>
+          <img src=${mealImage} alt="Meal Icon" class="img-fluid">
+          <button class="btn btn-primary like-button"
+            data-cocktail-name="${name}"
+            data-how-to-make="${howToMake}"
+            data-alco-or-not="${alcoOrNot}"
+            data-meal-name="${mealName}"
+            data-meal-image="${mealImage}"
+            data-img-url="${imgURL}"
+
               <button class="btn btn-primary like-button" data-cocktail-name="${name}">Like</button>
             </div>
           </div>
@@ -295,7 +275,7 @@ $("#container").on("click", ".like-button", function () {
     const clickCount = $(this).data("click-count") || 0;
 
     if (clickCount === 1) {
-      // Display alert for a repeat like only on the second click
+      // Display alert for a repeat like, only on the second click
       alert(`You already liked the cocktail: ${cocktailData.name}`);
     }
 
