@@ -88,6 +88,21 @@ ul {
   font-weight: bold;
 }
 
+/* SEARCH RESULT CARD */
+.backCardStyle {
+  background-color: #f85b52;
+  color: white;
+  border-radius: 10px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  padding: 5px;
+}
+
+.card-text-center {
+  text-align: center;
+}
+/* END SEARCH RESULT CARD */
+
 /* ABOUT PAGE */
 
 .ul-about-us {
