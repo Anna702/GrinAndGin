@@ -357,10 +357,11 @@ $("#container").on("click", ".like-button", function () {
     ],
   };
 
+
   const likedCocktails =
     JSON.parse(localStorage.getItem("likedCocktails")) || [];
   console.log(cocktailData);
-  
+
   // First check if the cocktail is already liked
   if (!likedCocktails.some((cocktail) => cocktail.name === cocktailData.name)) {
     likedCocktails.push(cocktailData);
