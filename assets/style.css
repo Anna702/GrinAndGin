@@ -100,7 +100,16 @@ ul {
 
 .card-text-center {
   text-align: center;
+  margin: 10px;
+
+  font-size: 20px;
+  color: #2a4703;
 }
+
+.pTextCardsSearch {
+  text-align: justify;
+}
+
 /* END SEARCH RESULT CARD */
 
 /* ABOUT PAGE */

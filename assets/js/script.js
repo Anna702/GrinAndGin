@@ -278,9 +278,10 @@ function drinkCard(data, howToMake, alcoOrNot, mealName, mealImage) {
         </div>
         <img src=${imgURL} alt="Cocktail Icon" class="img-fluid">
         
-        <p class="card-text card-text-center">How to make :<br>${howToMake}</p>
+        <h5 class="card-text howToMixText card-text-center">How to mix :</h5>
+        <p class="pTextCardsSearch">${howToMake}</p>
 
-        <h5 class="card-title">Ingredients</h5>
+        <h4 class="card-title card-text-center">Ingredients: </h4>
         <p class="card-text">${data.strIngredient1} - ${data.strMeasure1}</p>
         <p class="card-text">${data.strIngredient2} - ${data.strMeasure2}</p>
         <p class="card-text">${data.strIngredient3} - ${data.strMeasure3}</p>
