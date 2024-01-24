@@ -261,24 +261,38 @@ $("#searchButton").on("click", function (event) {
 
 // Created an event for handling "Like" button click and saving it in local storage
 $("#container").on("click", ".like-button", function () {
-  const cocktailName = $(this).data("cocktail-name");
-  const likedCocktails = JSON.parse(localStorage.getItem("likedCocktails")) || [];
+  const cocktailData = {
+    name: $(this).data("cocktail-name"),
+    howToMake: $(this).data("how-to-make"),
+    alcoOrNot: $(this).data("alco-or-not"),
+    mealName: $(this).data("meal-name"),
+    mealImage: $(this).data("meal-image"),
+    imgURL: $(this).data("img-url"),
+    ingredients: [
+      $(this).data("ing1"),
+      $(this).data("ing2"),
+      $(this).data("ing3"),
+      $(this).data("ing4"),
+    ],
+  };
 
-// First check if the cocktail is already liked
-if (!likedCocktails.includes(cocktailName)) {
-  likedCocktails.push(cocktailName);
-  localStorage.setItem("likedCocktails", JSON.stringify(likedCocktails));
-  alert(`You liked the cocktail: ${cocktailName}`);
-} else {
-  // Now checking if it's the second click on the same recipe
-  const clickCount = $(this).data("click-count") || 0;
-  
-  if (clickCount === 1) {
-    // Display alert for a repeat like only on the second click
-    alert(`You already liked the cocktail: ${cocktailName}`);
+  const likedCocktails = JSON.parse(localStorage.getItem("likedCocktails")) || [];
+  console.log(cocktailData)
+  // First check if the cocktail is already liked
+  if (!likedCocktails.some(cocktail => cocktail.name === cocktailData.name)) {
+    likedCocktails.push(cocktailData);
+    localStorage.setItem("likedCocktails", JSON.stringify(likedCocktails));
+    alert(`You liked the cocktail: ${cocktailData.name}`);
+  } else {
+    // Now checking if it's the second click on the same recipe
+    const clickCount = $(this).data("click-count") || 0;
+
+    if (clickCount === 1) {
+      // Display alert for a repeat like only on the second click
+      alert(`You already liked the cocktail: ${cocktailData.name}`);
+    }
+
+    // Code to update the click count
+    $(this).data("click-count", clickCount + 1);
   }
-  
-  // Code to update the click count
-  $(this).data("click-count", clickCount + 1);
-}
 });
