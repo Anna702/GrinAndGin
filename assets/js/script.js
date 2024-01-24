@@ -120,6 +120,39 @@ function modalMessage1 (){
  $("body").append(messageModal1 );
 }
 
+function modalMessageLike (name){
+  const messageModalLike = `
+
+
+<div class="modal fade" id="messageModalLike" tabindex="-1" role="dialog" aria-labelledby="messageModalTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Message</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true"> &times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p></p>
+        <p>You liked the cocktail: ${name}</p>
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+`;
+
+ // Append the modal to the body
+ $("body").append(messageModalLike);
+}
+
+
+
 // Function to search for a drink by ingredient
 function searchDrink(drink,alcoholic) {
   //Search By INGREDIENT
@@ -140,7 +173,7 @@ function searchDrink(drink,alcoholic) {
        $(document).ready(function(){
           modalMessage ();
           $("#messageModal").modal();
-        
+          console.log("option1")
       });
 
        }else{
@@ -148,16 +181,15 @@ function searchDrink(drink,alcoholic) {
       console.log(listOfDrinks);
 
 
-      if (data.drinks===null){
-        //alert(`There is no cocktails with ${drink} (${alcoholic})`);
-       // modalMessage (drink,alcoholic);
-       $(document).ready(function(){
-          modalMessage ();
-          $("#messageModal").modal();
+      // if (data.drinks===null){
+      
+      //  $(document).ready(function(){
+      //     modalMessage ();
+      //     $("#messageModal").modal();
         
-      });
+      // });
 
-      }else{
+      // }else{
 
       //creating a new query URL for the second API call - with coctail names
       let cardsHtml = ""; // Accumulate HTML content for each cocktail card
@@ -183,7 +215,8 @@ function searchDrink(drink,alcoholic) {
       
             //filter by alcoholic/non alcoholic options given by user input
             if (dataInstructions.drinks[0].strAlcoholic === alcoholic){
-
+              console.log("AAAAA"+dataInstructions.drinks[0].strAlcoholic)
+              console.log("BBBBB"+alcoholic)
 
             //add 3rd queryURL
             //The meal DB API - search based on the user input ingredient
@@ -243,14 +276,14 @@ function searchDrink(drink,alcoholic) {
                 }
               },
             });
-          }//if
-          else{
+            //IF
+          } else{
             //alert(`There is no cocktails with ${drink} (${alcoholic})`);
-            $(document).ready(function(){
-              modalMessage ();
-              $("#messageModal").modal();
-            
-            });
+            // $(document).ready(function(){
+            //   modalMessage ();
+            //   $("#messageModal").modal();
+            //   console.log("option2")
+            // });
           }
           },
         });
@@ -258,16 +291,16 @@ function searchDrink(drink,alcoholic) {
       // Set the accumulated HTML content to #container
       $("#container").html(cardsHtml);
     }//else
-    }
+    // }
     })
     .fail(function (data) {
       console.log(data);
       //alert("Could not find any drink with this ingredient");
-      $(document).ready(function(){
-        modalMessage ();
-        $("#messageModal").modal();
+      // $(document).ready(function(){
+      //   modalMessage ();
+      //   $("#messageModal").modal();
       
-      });
+      // });
     });
 }
 
@@ -369,7 +402,14 @@ $("#container").on("click", ".like-button", function () {
   if (!likedCocktails.some(cocktail => cocktail.name === cocktailData.name)) {
     likedCocktails.push(cocktailData);
     localStorage.setItem("likedCocktails", JSON.stringify(likedCocktails));
-    alert(`You liked the cocktail: ${cocktailData.name}`);
+    
+    //alert(`You liked the cocktail: ${cocktailData.name}`);
+    $(document).ready(function(){
+      modalMessageLike (`${cocktailData.name}`);
+      $("#messageModalLike").modal();
+    
+    });
+
   } else {
     // Now checking if it's the second click on the same recipe
     const clickCount = $(this).data("click-count") || 0;
