@@ -73,6 +73,9 @@ function searchDrink(drink,alcoholic) {
     //getJSON is always async,
     .done(function (data) {
       console.log(data.drinks);
+      if (data.drinks===null){
+        alert(`There is no cocktails with ${drink} (${alcoholic})`);
+      }else{
       let listOfDrinks = getRandomElements(data.drinks, 9); //this is our array of displayed drinks (if we need more/less to display - just change a number)
       console.log(listOfDrinks);
 
@@ -161,11 +164,15 @@ function searchDrink(drink,alcoholic) {
               },
             });
           }//if
+          else{
+            alert(`There is no cocktails with ${drink} (${alcoholic})`);
+          }
           },
         });
       }
       // Set the accumulated HTML content to #container
       $("#container").html(cardsHtml);
+    }
     })
     .fail(function (data) {
       console.log(data);
