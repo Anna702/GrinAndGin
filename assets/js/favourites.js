@@ -2,6 +2,7 @@
 // Function to generate HTML for each cocktail card
 function generateCocktailCard(cocktail) {
     console.log(cocktail)
+
     return `<div class="col-lg-4 col-md-6 col-sm-12 mb-4">
         <div class="card">
             <div class="card-body">
