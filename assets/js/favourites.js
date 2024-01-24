@@ -1,15 +1,18 @@
+
 // Function to generate HTML for each cocktail card
-function generateCocktailCard(data, dataInstructions ) {
-    console.log(data)
+function generateCocktailCard(cocktail) {
+    console.log(cocktail)
     return `<div class="col-lg-4 col-md-6 col-sm-12 mb-4">
         <div class="card">
             <div class="card-body">
-                <h2 class="card-title">${data}</h2>
-                <p class="card-text">How to make: ${dataInstructions}</p>
-                <p class="card-text">Type: ${data.strAlcoholic}</p>
-                <p class="card-text">Food: ${data.title}</p>
-                <img src=${data.image} alt="Meal Icon" class="img-fluid">
-
+                <h2 class="card-title">${cocktail.name}</h2>
+                <p class="card-text">Type: ${cocktail.alcoOrNot}</p>
+                <img src=${cocktail.imgURL} alt="Meal Icon" class="img-fluid">
+                <p class="card-text">How to make: ${cocktail.howToMake}</p>
+                <h2 class="card-text">Ingredients: ${cocktail.ingredients}</h2>
+                <p class="card-text">Food: ${cocktail.mealName}</p>
+                <img src=${cocktail.mealImage} alt="Meal Icon" class="img-fluid">
+                
             </div>
         </div>
     </div>`;
@@ -19,7 +22,7 @@ function generateCocktailCard(data, dataInstructions ) {
 function displayLikedCocktails() {
     // Retrieve liked cocktails from local storage
     const likedCocktails = JSON.parse(localStorage.getItem('likedCocktails')) || [];
-        console.log(likedCocktails)
+
     // Display liked cocktails on the page
     const favoritesContainer = $("#favoritesContainer");
 
