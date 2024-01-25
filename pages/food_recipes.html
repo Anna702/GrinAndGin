@@ -30,61 +30,65 @@
   </head>
   <body>
    <!-- HEADER -->
-   <header id="header" class="container-fluid">
-    <div class="row">
-      <div class="col">
-        <div id="logo" class="navbar-logo">
-          <img src="../Images/nav_name_logo.png" alt="GrinAndGin Logo" />
-          <img
-            src="../Images/grinandgin canva ai.png"
-            alt="GrinAndGin Picture"
-          />
-        </div>
-      </div>
-
-      <div class="col">
-        <nav class="navbar navbar-expand-lg navCustom">
-          <ul class="nav nav-pills row justify-content-center">
-            <li class="nav-item col"><a href="../index.html">Home</a></li>
-            <li class="nav-item about col">
-              <a href="./about.html">About</a>
-            </li>
-            <li class="nav-item dropdown col">
-              <a
-                class="nav-link dropdown-toggle dropdown-toggleCustom"
-                data-toggle="dropdown"
-                href="#"
-                role="button"
-                aria-haspopup="true"
-                aria-expanded="false"
-                >Cocktails</a
-              >
-              <div class="dropdown-menu dropdown">
-                <a class="dropdown-item" href="../pages/allCocktails.html"
-                  >All</a
-                >
-                <a class="dropdown-item" href="../pages/favCocktails.html"
-                  >Favourite</a
-                >
-              </div>
-            </li>
-            <li class="nav-item col">
-              <a href="./food_recipes.html">Food recipes</a>
-            </li>
-            <li class="nav-item col"><a href="#contacts">Contact Us</a></li>
-          </ul>
-        </nav>
+<header id="header" class="container-fluid">
+  <div class="row">
+    <!-- Logo Section -->
+    <div class="col-12 col-md-6 mx-auto text-center">
+      <div id="logo" class="navbar-logo">
+        <img src="../Images/nav_name_logo.png" alt="GrinAndGin Logo" />
+        <img src="../Images/grinandgin canva ai.png" alt="GrinAndGin Picture" />
       </div>
     </div>
-  </header>
-  <!-- END HEADER -->
+
+    <!-- Navigation Section -->
+    <div class="col-12 col-md-6 mx-auto text-center">
+      <nav class="navbar navbar-expand-lg navCustom">
+        <ul class="nav nav-pills row justify-content-center">
+          <li class="nav-item col"><a href="../index.html" class="nav-link">Home</a></li>
+          <li class="nav-item about col"><a href="./about.html" class="nav-link">About</a></li>
+          <li class="nav-item dropdown col">
+            <a
+              class="nav-link dropdown-toggle dropdown-toggleCustom"
+              data-toggle="dropdown"
+              href="#"
+              role="button"
+              aria-haspopup="true"
+              aria-expanded="false"
+              >Cocktails</a
+            >
+            <div class="dropdown-menu dropdown">
+              <a class="dropdown-item" href="../pages/allCocktails.html">All</a>
+              <a class="dropdown-item" href="../pages/favCocktails.html">Favourite</a>
+            </div>
+          </li>
+          <li class="nav-item col">
+            <a href="./food_recipes.html" class="nav-link">Food recipes</a>
+          </li>
+          <li class="nav-item col"><a href="#contacts" class="nav-link">Contact Us</a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</header>
+<!-- END HEADER -->
 
     <main>
-      <h1>Let's cook something special today!</h1>
-
+      <div class="pageWrapper">
+        <div class="text-center mb-4">
+          <h1 class="display-4">Let's cook something special today!</h1>
+        </div>
       <!--Cards to show all food recipes-->
       <div class="row pb-3" id="foodContainer">
         <section id="foodCard" class="col-lg-9 food"></section>
+      </div>
+
+      <!-- back to top btn -->
+      <div class="container mt-5">
+        <div class="row justify-content-center">
+          <div class="col-auto">
+            <a  href="#header"><button class="btn bg-dark text-light top-btn">Back to top <i class="bi bi-arrow-bar-up"></i></button></a>
+          </div>
+        </div>
       </div>
 
       <!-- CONTACTS -->
@@ -143,6 +147,7 @@
       </section>
       <!-- END CONTACTS -->
     </div>
+  </div>
   </main>
   <!-- END MAIN -->
 
@@ -156,23 +161,23 @@
         All rights reserved. Enjoy a refreshing cocktail! 🍹
       </p>
 
-      <!-- Facebook Share Button -->
-      <a
-        href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fyour-website-url.com"
+           <!-- Facebook Share Button -->
+        <a
+        href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fanna702.github.io%2FGrinAndGin%2F"
         target="_blank"
         class="btn btn-primary btn-sm mb-2"
-      >
+        >
         Share <i class="bi bi-facebook"></i>
-      </a>
+        </a>
 
-      <!-- Twitter Share Button -->
-      <a
-        href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fyour-website-url.com&text=Check%20out%20GrinAndGin%20-%20a%20refreshing%20cocktail%20experience!"
+        <!-- Twitter Share Button -->
+        <a
+        href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fanna702.github.io%2FGrinAndGin%2F&text=Check%20out%20GrinAndGin%20-%20a%20refreshing%20cocktail%20experience!"
         target="_blank"
         class="btn btn-info btn-sm mb-2"
-      >
+        >
         Share <i class="bi bi-twitter"></i>
-      </a>
+        </a>
     </div>
   </footer>
   <!-- END Footer -->
