@@ -27,9 +27,6 @@
 // Render updated liked recipes on the webpage
 // Code to handle disliking a recipe
 
-
-
-
 // Initial array of drinks
 var drinks = [];
 //Function to get random elements from drinks array (that we got from API call)
@@ -59,7 +56,9 @@ function getRandomElements(array, count) {
   return randomElements;
 }
 
-function modalMessage (){
+
+//// Bootstrap Modal to show message to the user if there isn't any cocktail that meet user's requirements
+function modalMessage() {
   const messageModal = `
 
 
@@ -85,11 +84,12 @@ function modalMessage (){
 
 `;
 
- // Append the modal to the body
- $("body").append(messageModal );
+  // Append the modal to the body
+  $("body").append(messageModal);
 }
 
-function modalMessage1 (){
+//// Bootstrap Modal to show message to the user if there isn't any cocktail return by API call
+function modalMessage1() {
   const messageModal1 = `
 
 
@@ -116,10 +116,11 @@ function modalMessage1 (){
 
 `;
 
- // Append the modal to the body
- $("body").append(messageModal1 );
+  // Append the modal to the body
+  $("body").append(messageModal1);
 }
 
+//// Bootstrap Modal to show message to the user if they like a cocktail
 function modalMessageLike (name){
   const messageModalLike = `
 
@@ -154,26 +155,25 @@ function modalMessageLike (name){
 
 
 // Function to search for a drink by ingredient
-function searchDrink(drink,alcoholic) {
+function searchDrink(drink, alcoholic) {
   //Search By INGREDIENT
- // let queryUrl = `http://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${drink}`;
+  // let queryUrl = `http://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${drink}`;
 
-
-   //Search cocktail by NAME: MARGARITA, MOJITO
-      //we get (name,icon,alcoholic/non alcoholic, instructions, glass type, ingredients, measures...)
-      var queryUrl = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${drink}`;
+  //Search cocktail by NAME
+  //we get (name,icon,alcoholic/non alcoholic, instructions, glass type, ingredients, measures...)
+  var queryUrl = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${drink}`;
 
   $.getJSON(queryUrl)
     //getJSON is always async,
     .done(function (data) {
       console.log(data.drinks);
-      if (data.drinks===null){
-        //alert(`There is no cocktails with ${drink} (${alcoholic})`);
-       // modalMessage (drink,alcoholic);
-       $(document).ready(function(){
-          modalMessage ();
+      //if we don't found any cocktail --show a modal telling that to the user
+      if (data.drinks === null) {
+    
+        $(document).ready(function () {
+          modalMessage();
           $("#messageModal").modal();
-          console.log("option1")
+        
       });
 
        }else{
@@ -181,24 +181,13 @@ function searchDrink(drink,alcoholic) {
       console.log(listOfDrinks);
 
 
-      // if (data.drinks===null){
-      
-      //  $(document).ready(function(){
-      //     modalMessage ();
-      //     $("#messageModal").modal();
-        
-      // });
-
-      // }else{
-
       //creating a new query URL for the second API call - with coctail names
       let cardsHtml = ""; // Accumulate HTML content for each cocktail card
-
-      for (let i = 0; i < listOfDrinks.length; i++) {
-        const secondQueryUrl = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${listOfDrinks[i].strDrink}`;
-        //getJSON is always async, thay is why here we use ajax - to wait for an answer from API before going further
-
       
+
+          for (let i = 0; i < listOfDrinks.length; i++) {
+            const secondQueryUrl = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${listOfDrinks[i].strDrink}`;
+            //getJSON is always async, thay is why here we use ajax - to wait for an answer from API before going further
 
         $.ajax({
           type: "GET",
@@ -211,26 +200,14 @@ function searchDrink(drink,alcoholic) {
             console.log(howToMake);
             const alcoOrNot = dataInstructions.drinks[0].strAlcoholic; //it is a drink type
             console.log(alcoOrNot);
-
+           
       
             //filter by alcoholic/non alcoholic options given by user input
             if (dataInstructions.drinks[0].strAlcoholic === alcoholic){
-              console.log("AAAAA"+dataInstructions.drinks[0].strAlcoholic)
-              console.log("BBBBB"+alcoholic)
 
             //add 3rd queryURL
             //The meal DB API - search based on the user input ingredient
             let foodQueryUrl = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${drink}`;
-
-            $.ajax({
-              type: "GET",
-              async: false,
-              url: foodQueryUrl,
-              dataType: "json",
-              success: function (foodData) {
-                //if there is no meals with ingredient - use API for a random meal
-                if (foodData.meals === null) {
-                  let foodQueryUrl = `https://www.themealdb.com/api/json/v1/1/random.php`;
 
                   $.ajax({
                     type: "GET",
@@ -238,31 +215,47 @@ function searchDrink(drink,alcoholic) {
                     url: foodQueryUrl,
                     dataType: "json",
                     success: function (foodData) {
-                      const mealName = foodData.meals[0].strMeal;
-                      const mealImage = foodData.meals[0].strMealThumb;
+                      //if there is no meals with ingredient - use API for a random meal
+                      if (foodData.meals === null) {
+                        let foodQueryUrl = `https://www.themealdb.com/api/json/v1/1/random.php`;
 
-                      console.log("list of drinks: "+listOfDrinks[i])
+                        $.ajax({
+                          type: "GET",
+                          async: false,
+                          url: foodQueryUrl,
+                          dataType: "json",
+                          success: function (foodData) {
+                            const mealName = foodData.meals[0].strMeal;
+                            const mealImage = foodData.meals[0].strMealThumb;
 
-                      cardsHtml += drinkCard(
-                        listOfDrinks[i],
-                        howToMake,
-                        alcoOrNot,
-                        mealName,
-                        mealImage
-                      );
-                    },
-                  });
-                }
-                //else - get a random recipe with an input ingredient in it and attach it to the card
-                else {
-                  const differentMatchingMeals = getRandomElements(
-                    foodData.meals,
-                    1
-                  );
-                  // Loop through each meal in differentMatchingMeals
-                  for (let j = 0; j < differentMatchingMeals.length; j++) {
-                    const mealName = differentMatchingMeals[j].strMeal;
-                    const mealImage = differentMatchingMeals[j].strMealThumb;
+                            console.log("list of drinks: " + listOfDrinks[i]);
+
+                            cardsHtml += drinkCard(
+                              listOfDrinks[i],
+                              howToMake,
+                              alcoOrNot,
+                              mealName,
+                              mealImage
+                            );
+                            
+                          },
+                        });
+                      }
+                      //else - get a random recipe with an input ingredient in it and attach it to the card
+                      else {
+                        const differentMatchingMeals = getRandomElements(
+                          foodData.meals,
+                          1
+                        );
+                        // Loop through each meal in differentMatchingMeals
+                        for (
+                          let j = 0;
+                          j < differentMatchingMeals.length;
+                          j++
+                        ) {
+                          const mealName = differentMatchingMeals[j].strMeal;
+                          const mealImage =
+                            differentMatchingMeals[j].strMealThumb;
 
                     // Add cocktail name and recipe to cardsHtml
                     cardsHtml += drinkCard(
@@ -272,59 +265,71 @@ function searchDrink(drink,alcoholic) {
                       mealName,
                       mealImage
                     );
+                     
                   }
                 }
               },
             });
-            //IF
-          } else{
-            //alert(`There is no cocktails with ${drink} (${alcoholic})`);
-            // $(document).ready(function(){
-            //   modalMessage ();
-            //   $("#messageModal").modal();
-            //   console.log("option2")
-            // });
-          }
+          }//if
           },
         });
-      }
+      }//for
+
+      if (cardsHtml.trim().length !== 0){
       // Set the accumulated HTML content to #container
       $("#container").html(cardsHtml);
-    }//else
-    // }
+      }
+      //if we don't find any cocktail --show a modal telling that to the user
+      else{
+        $(document).ready(function(){
+        modalMessage ();
+        $("#messageModal").modal();
+      
+      });
+      }
+    }
     })
     .fail(function (data) {
-      console.log(data);
       //alert("Could not find any drink with this ingredient");
-      // $(document).ready(function(){
-      //   modalMessage ();
-      //   $("#messageModal").modal();
+      $(document).ready(function(){
+        modalMessage ();
+        $("#messageModal").modal();
       
-      // });
+      });
     });
 }
 
-// Function to display drinks on the page
+// Function to display drinks cards on the page
 function drinkCard(data, howToMake, alcoOrNot, mealName, mealImage) {
   const name = data.strDrink;
   const imgURL = data.strDrinkThumb;
 
   const card = `
-    <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
-      <div class="card">
-        <div class="card-body">
-          <h2 class="card-title">${name}</h2>
-          <p class="card-text">Type: ${alcoOrNot}</p>
-          <img src=${imgURL} alt="Cocktail Icon" class="img-fluid">
-          <p class="card-text">How to make : ${howToMake}</p>
+  <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+    <div class="card">
+      <div class="card-body">
+      <div class="backCardStyle">
+        <h2 class="card-title">${name}</h2>
+        <p class="card-text">${alcoOrNot}</p>
+        </div>
+        <img src=${imgURL} alt="Cocktail Icon" class="img-fluid">
+        
+        <h5 class="card-text howToMixText card-text-center">How to mix :</h5>
+        <p class="pTextCardsSearch">${howToMake}</p>
 
-          <h5 class="card-title">Ingredients</h5>
-          <p class="card-text">${data.strIngredient1} - ${data.strMeasure1}</p>
-          <p class="card-text">${data.strIngredient2} - ${data.strMeasure2}</p>
-          <p class="card-text">${data.strIngredient3} - ${data.strMeasure3}</p>
-          <p class="card-text">${data.strIngredient4} - ${data.strMeasure4}</p>
+        <h4 class="card-text card-text-center">Ingredients: </h4>
+        <table class="table table-bordered">
+            <tbody>
+                ${createIngredientRow(data.strIngredient1, data.strMeasure1)}
+                ${createIngredientRow(data.strIngredient2, data.strMeasure2)}
+                ${createIngredientRow(data.strIngredient3, data.strMeasure3)}
+                ${createIngredientRow(data.strIngredient4, data.strMeasure4)}
+            </tbody>
+        </table>
 
-          <p class="card-text"><B>Food: ${mealName}</B></p>
+        <h5 class="card-text howToMixText card-text-center">Try it with:</h5>
+        <p class="text-center card-title">${mealName}</p>
+
           <img src=${mealImage} alt="Meal Icon" class="img-fluid">
           <button class="btn btn-primary like-button"
             data-cocktail-name="${name}"
@@ -338,15 +343,13 @@ function drinkCard(data, howToMake, alcoOrNot, mealName, mealImage) {
             data-ing3="${data.strIngredient3}"  
             data-ing4="${data.strIngredient4}"  
 
-              <button class="btn btn-primary like-button" data-cocktail-name="${name}">Like</button>
+              <button class="btn btn-primary like-button" data-cocktail-name="${name}">Add to favourites</button>
             </div>
           </div>
   </div>
-        `;
+`;
   return card;
 }
-
-
 
 // Event handler for MixIt button
 $("#searchButton").on("click", function (event) {
@@ -357,26 +360,24 @@ $("#searchButton").on("click", function (event) {
   const inputDrink = $("#ingredients").val().trim();
 
   //Storing if the user wants an alcoholic/non alcoholic options
-  const alcoholic =  $("#alcoholType").val().trim();
-  
+  const alcoholic = $("#alcoholType").val().trim();
+
   //throw an error if user input cocktail name is empty
   if (!inputDrink) {
     //console.error("Please enter any ingredient!");
-    $(document).ready(function(){
-      modalMessage1 ();
+    $(document).ready(function () {
+      modalMessage1();
       $("#messageModal1").modal();
-    
     });
     return;
   }
 
-   // Adding drink from the textbox to our array of drinks search
-   drinks.push(inputDrink);
-   console.log(drinks);
-
+  // Adding drink from the textbox to our array of drinks search
+  drinks.push(inputDrink);
+  console.log(drinks);
 
   // Adding drink from the textbox to our array of drinks search
-    searchDrink(inputDrink, alcoholic);
+  searchDrink(inputDrink, alcoholic);
 });
 
 // Created an event for handling "Like" button click and saving it in local storage
@@ -396,10 +397,11 @@ $("#container").on("click", ".like-button", function () {
     ],
   };
 
-  const likedCocktails = JSON.parse(localStorage.getItem("likedCocktails")) || [];
-  console.log(cocktailData)
+  const likedCocktails =
+    JSON.parse(localStorage.getItem("likedCocktails")) || [];
+  console.log(cocktailData);
   // First check if the cocktail is already liked
-  if (!likedCocktails.some(cocktail => cocktail.name === cocktailData.name)) {
+  if (!likedCocktails.some((cocktail) => cocktail.name === cocktailData.name)) {
     likedCocktails.push(cocktailData);
     localStorage.setItem("likedCocktails", JSON.stringify(likedCocktails));
     
@@ -423,3 +425,16 @@ $("#container").on("click", ".like-button", function () {
     $(this).data("click-count", clickCount + 1);
   }
 });
+
+function createIngredientRow(ingredient, measure) {
+  // check if we have data (not empty)
+  if (ingredient && measure) {
+    return `
+          <tr>
+              <td>${ingredient}</td>
+              <td>${measure}</td>
+          </tr>
+      `;
+  }
+  return "";
+}
