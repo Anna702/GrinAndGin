@@ -106,7 +106,7 @@ function modalMessageLike(name) {
       </div>
       <div class="modal-body">
         <p></p>
-        <p>You liked the cocktail: ${name}</p>
+        <p>Great choice! ${name} is now saved in 'Favourite'. </p> 
         
       </div>
       <div class="modal-footer">
