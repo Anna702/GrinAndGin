@@ -8,22 +8,19 @@ function getAllCocktails(cardCount) {
 
     $.getJSON(randomCocktailQueryUrl)
       .done(function (cocktailData) {
-        console.log(cocktailData);
         cardsHtml += cocktailCard(cocktailData.drinks[0], i); // Pass 'i' to make each modal unique
 
         // Set the accumulated HTML content to #container
         $("#cocktailsContainer").html(cardsHtml);
       })
       .fail(function (data) {
-        console.log(data);
-        alert("Cocktails data problems - check the code");
+        console.log(data, "Cocktails data problems - check the code");
       });
   }
 }
 
 // Function to display food cards on the page
 function cocktailCard(cocktailData, index) {
-  console.log(cocktailData);
   const cocktailName = cocktailData.strDrink;
   const cocktailImage = cocktailData.strDrinkThumb;
   const cocktailType = cocktailData.strAlcoholic;
