@@ -14,15 +14,13 @@ function getAllFood(cardCount) {
         $("#foodContainer").html(cardsHtml);
       })
       .fail(function (data) {
-        console.log(data);
-        alert("Food problems - check the code");
+        console.log(data, "Food problems - check the code");
       });
   }
 }
 
 // Function to display food cards on the page
 function foodCard(mealData, index) {
-  console.log(mealData);
   const mealName = mealData.strMeal;
   const mealImage = mealData.strMealThumb;
   const ingredients = getIngredients(mealData);
