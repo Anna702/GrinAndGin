@@ -72,6 +72,10 @@ In case you have any questions, feel free to contact us:
 - <a href="https://github.com/Joeviser"> Maria Isabel Solana </a>
 - <a href="https://github.com/Anna702"> Anna Chernova </a>
 
+## Project Presentation
+
+GrinAndGin [presentation](https://drive.google.com/file/d/1uTPF-zQXOiiZePOb8fmAsbiWb1cgnRXi/view?usp=sharing).
+
 ## License
 
 This project is licensed under the MIT License.

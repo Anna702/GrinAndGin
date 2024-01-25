@@ -59,7 +59,7 @@ function modalMessage() {
   $("body").append(messageModal);
 }
 
-//// Bootstrap Modal to show message to the user if there isn't any cocktail return by API call
+// Bootstrap Modal to show message to the user if there isn't any cocktail return by API call
 function modalMessage1() {
   const messageModal1 = `
 
@@ -91,7 +91,7 @@ function modalMessage1() {
   $("body").append(messageModal1);
 }
 
-//// Bootstrap Modal to show message to the user if they like a cocktail
+//Bootstrap Modal to show message to the user if they like a cocktail
 function modalMessageLike (name){
   const messageModalLike = `
 
