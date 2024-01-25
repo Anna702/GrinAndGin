@@ -56,6 +56,8 @@ function getRandomElements(array, count) {
   return randomElements;
 }
 
+
+//// Bootstrap Modal to show message to the user if there isn't any cocktail that meet user's requirements
 function modalMessage() {
   const messageModal = `
 
@@ -86,6 +88,7 @@ function modalMessage() {
   $("body").append(messageModal);
 }
 
+//// Bootstrap Modal to show message to the user if there isn't any cocktail return by API call
 function modalMessage1() {
   const messageModal1 = `
 
@@ -117,12 +120,46 @@ function modalMessage1() {
   $("body").append(messageModal1);
 }
 
+//// Bootstrap Modal to show message to the user if they like a cocktail
+function modalMessageLike (name){
+  const messageModalLike = `
+
+
+<div class="modal fade" id="messageModalLike" tabindex="-1" role="dialog" aria-labelledby="messageModalTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Message</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true"> &times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p></p>
+        <p>You liked the cocktail: ${name}</p>
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+`;
+
+ // Append the modal to the body
+ $("body").append(messageModalLike);
+}
+
+
+
 // Function to search for a drink by ingredient
 function searchDrink(drink, alcoholic) {
   //Search By INGREDIENT
   // let queryUrl = `http://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${drink}`;
 
-  //Search cocktail by NAME: MARGARITA, MOJITO
+  //Search cocktail by NAME
   //we get (name,icon,alcoholic/non alcoholic, instructions, glass type, ingredients, measures...)
   var queryUrl = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${drink}`;
 
@@ -130,49 +167,47 @@ function searchDrink(drink, alcoholic) {
     //getJSON is always async,
     .done(function (data) {
       console.log(data.drinks);
+      //if we don't found any cocktail --show a modal telling that to the user
       if (data.drinks === null) {
-        //alert(`There is no cocktails with ${drink} (${alcoholic})`);
-        // modalMessage (drink,alcoholic);
+    
         $(document).ready(function () {
           modalMessage();
           $("#messageModal").modal();
-        });
-      } else {
-        let listOfDrinks = getRandomElements(data.drinks, 9); //this is our array of displayed drinks (if we need more/less to display - just change a number)
-        console.log(listOfDrinks);
+        
+      });
 
-        if (data.drinks === null) {
-          //alert(`There is no cocktails with ${drink} (${alcoholic})`);
-          // modalMessage (drink,alcoholic);
-          $(document).ready(function () {
-            modalMessage();
-            $("#messageModal").modal();
-          });
-        } else {
-          //creating a new query URL for the second API call - with coctail names
-          let cardsHtml = ""; // Accumulate HTML content for each cocktail card
+       }else{
+      let listOfDrinks = getRandomElements(data.drinks, 9); //this is our array of displayed drinks (if we need more/less to display - just change a number)
+      console.log(listOfDrinks);
+
+
+      //creating a new query URL for the second API call - with coctail names
+      let cardsHtml = ""; // Accumulate HTML content for each cocktail card
+      
 
           for (let i = 0; i < listOfDrinks.length; i++) {
             const secondQueryUrl = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${listOfDrinks[i].strDrink}`;
             //getJSON is always async, thay is why here we use ajax - to wait for an answer from API before going further
 
-            $.ajax({
-              type: "GET",
-              async: false,
-              url: secondQueryUrl,
-              // contentType: "application/json",
-              dataType: "json",
-              success: function (dataInstructions) {
-                const howToMake = dataInstructions.drinks[0].strInstructions; //it is an instruction how to make a cocktail
-                console.log(howToMake);
-                const alcoOrNot = dataInstructions.drinks[0].strAlcoholic; //it is a drink type
-                console.log(alcoOrNot);
+        $.ajax({
+          type: "GET",
+          async: false,
+          url: secondQueryUrl,
+          // contentType: "application/json",
+          dataType: "json",
+          success: function (dataInstructions) {
+            const howToMake = dataInstructions.drinks[0].strInstructions; //it is an instruction how to make a cocktail
+            console.log(howToMake);
+            const alcoOrNot = dataInstructions.drinks[0].strAlcoholic; //it is a drink type
+            console.log(alcoOrNot);
+           
+      
+            //filter by alcoholic/non alcoholic options given by user input
+            if (dataInstructions.drinks[0].strAlcoholic === alcoholic){
 
-                //filter by alcoholic/non alcoholic options given by user input
-                if (dataInstructions.drinks[0].strAlcoholic === alcoholic) {
-                  //add 3rd queryURL
-                  //The meal DB API - search based on the user input ingredient
-                  let foodQueryUrl = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${drink}`;
+            //add 3rd queryURL
+            //The meal DB API - search based on the user input ingredient
+            let foodQueryUrl = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${drink}`;
 
                   $.ajax({
                     type: "GET",
@@ -202,6 +237,7 @@ function searchDrink(drink, alcoholic) {
                               mealName,
                               mealImage
                             );
+                            
                           },
                         });
                       }
@@ -221,45 +257,49 @@ function searchDrink(drink, alcoholic) {
                           const mealImage =
                             differentMatchingMeals[j].strMealThumb;
 
-                          // Add cocktail name and recipe to cardsHtml
-                          cardsHtml += drinkCard(
-                            listOfDrinks[i],
-                            howToMake,
-                            alcoOrNot,
-                            mealName,
-                            mealImage
-                          );
-                        }
-                      }
-                    },
-                  });
-                } //if
-                else {
-                  //alert(`There is no cocktails with ${drink} (${alcoholic})`);
-                  $(document).ready(function () {
-                    modalMessage();
-                    $("#messageModal").modal();
-                  });
+                    // Add cocktail name and recipe to cardsHtml
+                    cardsHtml += drinkCard(
+                      listOfDrinks[i],
+                      howToMake,
+                      alcoOrNot,
+                      mealName,
+                      mealImage
+                    );
+                     
+                  }
                 }
               },
             });
-          }
-          // Set the accumulated HTML content to #container
-          $("#container").html(cardsHtml);
-        } //else
+          }//if
+          },
+        });
+      }//for
+
+      if (cardsHtml.trim().length !== 0){
+      // Set the accumulated HTML content to #container
+      $("#container").html(cardsHtml);
       }
+      //if we don't find any cocktail --show a modal telling that to the user
+      else{
+        $(document).ready(function(){
+        modalMessage ();
+        $("#messageModal").modal();
+      
+      });
+      }
+    }
     })
     .fail(function (data) {
-      console.log(data);
       //alert("Could not find any drink with this ingredient");
-      $(document).ready(function () {
-        modalMessage();
+      $(document).ready(function(){
+        modalMessage ();
         $("#messageModal").modal();
+      
       });
     });
 }
 
-// Function to display drinks on the page
+// Function to display drinks cards on the page
 function drinkCard(data, howToMake, alcoOrNot, mealName, mealImage) {
   const name = data.strDrink;
   const imgURL = data.strDrinkThumb;
@@ -366,7 +406,14 @@ $("#container").on("click", ".like-button", function () {
   if (!likedCocktails.some((cocktail) => cocktail.name === cocktailData.name)) {
     likedCocktails.push(cocktailData);
     localStorage.setItem("likedCocktails", JSON.stringify(likedCocktails));
-    alert(`You liked the cocktail: ${cocktailData.name}`);
+    
+    //alert(`You liked the cocktail: ${cocktailData.name}`);
+    $(document).ready(function(){
+      modalMessageLike (`${cocktailData.name}`);
+      $("#messageModalLike").modal();
+    
+    });
+
   } else {
     // Now checking if it's the second click on the same recipe
     const clickCount = $(this).data("click-count") || 0;
