@@ -1,54 +1,83 @@
-# GrinAndGin Cocktail Website
-GrinAndGin is a whimsical cocktail website that adds a playful twist to the art of mixology. Whether you're a seasoned cocktail enthusiast or just looking for a laugh with your libation, GrinAndGin has something special for you.
+# GrinAndGin: Cocktail Matching Website
 
-# Features
-1. MixIt Magic
-Easily input the ingredients you have on hand and choose your preferred drink type: alcoholic or non-alcoholic.
-Explore a variety of delightful cocktail options based on your selected ingredient.
-2. Quirky Cocktails
-Discover a range of quirky and unique cocktails that go beyond the ordinary.
-Each cocktail card provides a playful name, type, preparation instructions, and a surprise recipe.
-3. Food Pairing
-Elevate your drinking experience by exploring suggested food pairings for each cocktail.
-Unleash your culinary creativity with exciting combinations of cocktails and meals.
-4. Favorites
-Like a cocktail? Save it to your library!
-Access your liked cocktails anytime, even after closing the browser, thanks to local storage.
-5. Contact Us
-Reach out to the creators for inquiries, collaborations, or just to share your love for quirky cocktails.
+GrinAndGin is the app designed to simplify cocktail mixing and culinary pairing.
 
-# The Criteria
-We want to create a cocktail finder app that matches an ingredient to a cocktail.
-We want the website to do the following:
--	Have a navbar with each item linking to separate page (multiple html files)
--	Have a search bar where the user can enter an ingredient
--	Use the two APIs (cocktailDB and spoonacular) to return cocktail recipe and match the drink with a random food item
--	Give the user an option to like/dislike the choice of drink and save liked drinks in localStorage
--	Use localStorage to save the search history
--	Create an option to clear history
+## Description
 
-# How it works
-Start by entering the ingredients you have, choose your drink type, and hit the "MixIt!" button to unveil a world of quirky cocktails.
+Grin And Gin was crafted by three novice web developers: Antonia Yovcheva, Maria Isabel Solana and Anna Chernova as part of the [EdX Skills Bootcamp in Front-End Web Development](https://www.edx.org/boot-camps/coding/skills-bootcamp-in-front-end-web-development).
 
-# Used
-Bootstrap 5: A front-end framework for building responsive and visually appealing web pages.
-jQuery: A fast, small, and feature-rich JavaScript library.
+The application offers a diverse range of cocktail recipes with both alcoholic and non-alcoholic options. It suggests meals to go with each drink, enables users to save their favorite combinations, and allows exploration of a variety of drink and food recipes.
 
-# Authors
-Antonia Yovcheva
-Maria Isabel Solana
-Anna Chernova
+## Features
 
+1. ### Ingredient input
 
-License
-This project is licensed under the MIT License - see the LICENSE file for details.
+The user's journey begins by entering an alcoholic or non-alcoholic ingredient through the intuitive interface and selecting the desired drink type. Afterward, the user hits the "MixIt!" button to reveal a world of cocktails.
 
-Acknowledgments
+2. ### Quirky Cocktails
+
+Grin And Gin algorithms analyze entered ingredient to provide users with a collection of cocktail cards, each accompanied by recipes and preparation instructions, that they can craft with the specified ingredient.
+
+3. ### Food Pairing
+
+Users get matching meal suggestions. They also can explore a dedicated page with all food recipes to choose something else.
+
+4. ### Favorites
+
+Users can easily add and remove cocktail recipes to their 'Favorites' with a click. Thanks to localStorage, all liked cocktails are stored on a dedicated page. Users can access their liked cocktails anytime, even after closing the browser, and also delete them from the list if no longer needed.
+
+5. ### Inspiration Hub
+
+Users can browse a variety of all cocktail recipes with the "All" section in the "Cocktails" menu.
+
+6. ### Share with friends
+
+An option to share the link to Grin and Gin website on personal Facebook and Twitter newsfeeds.
+
+## Technologies used:
+
+- **HTML (HyperText Markup Language):** The primary markup language for creating the structure of web pages.
+
+- **CSS (Cascading Style Sheets):** Used for styling and visually formatting web pages, allowing customization of colors, fonts, layout.
+
+- **Bootstrap:** A framework for developing responsive and stylish web applications, providing ready-made components, grids, styles.
+
+- **jQuery:** A JavaScript library that simplifies interaction with HTML documents, event handling.
+
+- **Bootstrap Icons:** Icons provided by Bootstrap for use in web applications, enhancing visual elements and improving the user experience.
+
+- **API Integration:** Utilizing external APIs (such as [TheCocktailDB](https://www.thecocktaildb.com/api.php) and [TheMealDB](https://www.themealdb.com/api.php)) to dynamically retrieve cocktail recipes and match drinks with food items, enhancing the functionality and content of the web application.
+
+## Project Screenshot
+
+![screenshot](./Images/screencapture-full-page.png)
+
+## Project Status
+
+Deployed: [GrinAndGin website](https://anna702.github.io/GrinAndGin/).
+
+## Credits
+
+Online tutoring sessions - [EdX Skills Bootcamp in Front-End Web Development](https://www.edx.org/boot-camps/coding/skills-bootcamp-in-front-end-web-development).
+
+Bespoke pictures, backgrounds and logo were created with [Canva](https://www.canva.com/) and AI-powered App [Magic Media](https://www.canva.com/en_gb/help/using-magic-media/).
+
+Wireframe - [Excalidraw](https://excalidraw.com).
+
+## Creators:
+
+In case you have any questions, feel free to contact us:
+
+- <a href="https://github.com/ToniY97"> Antonia Yovcheva </a>
+- <a href="https://github.com/Joeviser"> Maria Isabel Solana </a>
+- <a href="https://github.com/Anna702"> Anna Chernova </a>
+
+## License
+
+This project is licensed under the MIT License.
+
+## Acknowledgments
+
 Hat tip to anyone who enjoys a good laugh with their cocktail.
 Cheers to the open-source community for inspiration and support.
 Let the mixing and grinning begin! 🍹✨
-
-![screenshot](./Images/screencapture-full-page.png)
-[GrinandGin-website](https://anna702.github.io/GrinAndGin/)
-
-
