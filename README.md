@@ -74,7 +74,7 @@ In case you have any questions, feel free to contact us:
 
 ## Project Presentation
 
-GrinAndGin [presentation](https://drive.google.com/file/d/1uTPF-zQXOiiZePOb8fmAsbiWb1cgnRXi/view?usp=sharing).
+GrinAndGin [presentation](https://drive.google.com/file/d/1pgN201-yN9mc7-Hu_cwGpsu22fNBMg_8/view?usp=sharing).
 
 ## License
 
