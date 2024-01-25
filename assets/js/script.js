@@ -2,6 +2,7 @@
 var drinks = [];
 //Function to get random elements from drinks array (that we got from API call)
 function getRandomElements(array, count) {
+  
   const arrayLength = array.length;
   let randomIndices = [];
 
@@ -23,7 +24,7 @@ function getRandomElements(array, count) {
   const randomElements = randomIndices.map(function (index) {
     return array[index];
   });
-
+  
   return randomElements;
 }
 
@@ -88,6 +89,71 @@ function modalMessage1() {
 
   // Append the modal to the body
   $("body").append(messageModal1);
+}
+
+//// Bootstrap Modal to show message to the user if they like a cocktail
+function modalMessageLike (name){
+  const messageModalLike = `
+
+
+<div class="modal fade" id="messageModalLike" tabindex="-1" role="dialog" aria-labelledby="messageModalTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Message</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true"> &times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p></p>
+        <p>You liked the cocktail: ${name}</p>
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+`;
+
+ // Append the modal to the body
+ $("body").append(messageModalLike);
+}
+
+//// Bootstrap Modal to show message to the user if they like a cocktail
+function modalMessageLikeRepeat (name){
+  const messageModalLikeRepeat = `
+
+
+<div class="modal fade" id="messageModalLikeRepeat" tabindex="-1" role="dialog" aria-labelledby="messageModalTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Message</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true"> &times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p></p>
+        
+        <p>You already liked the cocktail: ${name}</p>
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+`;
+
+ // Append the modal to the body
+ $("body").append(messageModalLikeRepeat);
 }
 
 //// Bootstrap Modal to show message to the user if they like a cocktail
@@ -207,33 +273,33 @@ function searchDrink(drink, alcoholic) {
                         const mealImage =
                           differentMatchingMeals[j].strMealThumb;
 
-                        // Add cocktail name and recipe to cardsHtml
-                        cardsHtml += drinkCard(
-                          listOfDrinks[i],
-                          howToMake,
-                          alcoOrNot,
-                          mealName,
-                          mealImage
-                        );
-                      }
-                    }
-                  },
-                });
-              } //if
-            },
-          });
-        } //for
-
-        if (cardsHtml.trim().length !== 0) {
-          // Set the accumulated HTML content to #container
-          $("#container").html(cardsHtml);
+                    // Add cocktail name and recipe to cardsHtml
+                    cardsHtml += drinkCard(
+                      listOfDrinks[i],
+                      howToMake,
+                      alcoOrNot,
+                      mealName,
+                      mealImage
+                    );
+                  }
+                }
+              },
+            });
+          }//if
+          },
+        });//ajax
+      }//for
+      if (cardsHtml.trim().length !== 0){
+        // Set the accumulated HTML content to #container
+        $("#container").html(cardsHtml);
         }
         //if we don't find any cocktail --show a modal telling that to the user
-        else {
-          $(document).ready(function () {
-            modalMessage();
-            $("#messageModal").modal();
-          });
+        else{
+          $(document).ready(function(){
+          modalMessage ();
+          $("#messageModal").modal();
+        
+        });
         }
       }
     })
@@ -349,19 +415,26 @@ $("#container").on("click", ".like-button", function () {
   if (!likedCocktails.some((cocktail) => cocktail.name === cocktailData.name)) {
     likedCocktails.push(cocktailData);
     localStorage.setItem("likedCocktails", JSON.stringify(likedCocktails));
-
-    //alert(`You liked the cocktail: ${cocktailData.name}`);
-    $(document).ready(function () {
-      modalMessageLike(`${cocktailData.name}`);
+   
+     //alert(`You liked the cocktail: ${cocktailData.name}`);
+     $(document).ready(function(){
+      modalMessageLike (`${cocktailData.name}`);
       $("#messageModalLike").modal();
+    
     });
+
   } else {
     // Now checking if it's the second click on the same recipe
     const clickCount = $(this).data("click-count") || 0;
 
     if (clickCount === 1) {
       // Display alert for a repeat like, only on the second click
-      alert(`You already liked the cocktail: ${cocktailData.name}`);
+      //alert(`You already liked the cocktail: ${cocktailData.name}`);
+      $(document).ready(function(){
+        modalMessageLikeRepeat (`${cocktailData.name}`);
+        $("#messageModalLikeRepeat").modal();
+      
+      });
     }
 
     // Code to update the click count
